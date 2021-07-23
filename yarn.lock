@@ -1326,7 +1326,7 @@ native-url@0.3.4:
   dependencies:
     querystring "^0.2.0"
 
-next@^11.0.0:
+next@11.0.1:
   version "11.0.1"
   resolved "https://registry.npmjs.org/next/-/next-11.0.1.tgz"
   integrity sha512-yR7be7asNbvpVNpi6xxEg28wZ7Gqmj1nOt0sABH9qORmF3+pms2KZ7Cng33oK5nqPIzEEFJD0pp2PCe3/ueMIg==
