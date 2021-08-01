@@ -1,27 +1,21 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
 }
 
-* {
-  box-sizing: border-box;
+::-webkit-scrollbar-track{
+  background: #2D3748;
 }
 
-a {
-  color: #0070f3;
-  text-decoration: none;
+::-webkit-scrollbar-thumb{
+  background: #CBD5E0;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
-img {
-  max-width: 100%;
-  display: block;
+::-webkit-scrollbar-thumb:hover{
+  background: #718096;
 }
