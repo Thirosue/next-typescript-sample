@@ -20,7 +20,49 @@ yarn dev
 
 ## Api Call by httpie
 
-### Get
+### Auth
+
+#### Login
+
+```
+% http POST localhost:3000/api/auth id=admin password=admin
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 190
+Content-Type: application/json; charset=utf-8
+Date: Sun, 01 Aug 2021 05:36:28 GMT
+ETag: "be-EUwSL/sFHYoNqEfq43k2ciEXYog"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "status": "ok",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjc3OTk3ODgsInBheWxvYWQiOnsidXNlciI6ImFkbWluIn0sImlhdCI6MTYyNzc5NjE4OH0.vkZzymb3hyftl2pb75wuLKaavfnZV5ZlR88aISIQOBQ"
+}
+```
+
+#### Session Check
+
+```
+% http POST localhost:3000/api/auth/check "authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjc3OTk3ODgsInBheWxvYWQiOnsidXNlciI6ImFkbWluIn0sImlhdCI6MTYyNzc5NjE4OH0.vkZzymb3hyftl2pb75wuLKaavfnZV5ZlR88aISIQOBQ"
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 154
+Content-Type: application/json; charset=utf-8
+Date: Sun, 01 Aug 2021 05:37:18 GMT
+ETag: "9a-WG2wB4ewrnriUOAqysn9WZKtyC4"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "status": "ok",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjc3OTk4MzgsImlhdCI6MTYyNzc5NjIzOH0.r7KYW3z8md7ZqN94TEuWRKoLRGB8Up6dAGkQrF7J9CE"
+}
+```
+
+### Product
+
+#### Get
 
 * findAll
 
@@ -72,7 +114,7 @@ Vary: Accept-Encoding
 }
 ```
 
-### Post
+#### Post
 
 ```
 % http POST localhost:3000/api/products/post name=hoge description=hoge quantity=777
@@ -93,7 +135,7 @@ Vary: Accept-Encoding
 }
 ```
 
-### Put
+#### Put
 
 ```
 % http PUT 'localhost:3000/api/products/put?id=4' name=hoge description=hoge quantity=777
@@ -114,7 +156,7 @@ Vary: Accept-Encoding
 }
 ```
 
-### Delete
+#### Delete
 
 ```
 % http DELETE 'localhost:3000/api/products/delete?id=4'
