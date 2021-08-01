@@ -27,12 +27,12 @@ export default function Login({ }) {
           <form className="mt-4" action="/" method="GET">
             <label className="block">
               <span className="text-gray-700 text-sm">Email</span>
-              <input type="email" className="form-input mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600" />
+              <input type="email" className="mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600" />
             </label>
 
             <label className="block mt-3">
               <span className="text-gray-700 text-sm">Password</span>
-              <input type="password" className="form-input mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600" />
+              <input type="password" className="mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600" />
             </label>
 
             <div className="flex justify-between items-center mt-4">

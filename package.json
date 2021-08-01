@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "0.3.3",
+    "@tailwindcss/line-clamp": "0.2.1",
     "@tailwindcss/typography": "0.4.1",
     "@types/node": "16.4.0",
     "@types/react": "17.0.15",
