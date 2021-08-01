@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import _ from 'lodash'
 import data from './shared/product-data'
+import { Product } from './data/product'
 
 interface ProductGetRequest extends NextApiRequest {
   query: {
@@ -26,10 +27,10 @@ export default (req: ProductGetRequest, res: NextApiResponse) => {
       }
     }
     if (name) {
-      products = products.filter((item) => -1 !== item.name.indexOf(name));
+      products = products.filter((item: Product) => -1 !== item.name.indexOf(name));
     }
     if (description) {
-      products = products.filter((item) => -1 !== item.description.indexOf(description));
+      products = products.filter((item: Product) => -1 !== item.description.indexOf(description));
     }
     const start = _rows * _page;
     console.log(name, description, start, page, rows, order, orderBy);
