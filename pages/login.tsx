@@ -5,6 +5,7 @@ import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
+import TextField from '../components/atoms/text-field'
 
 export default function Login({ }) {
   return (
@@ -30,10 +31,11 @@ export default function Login({ }) {
               <input type="email" className="mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600" />
             </label>
 
-            <label className="block mt-3">
-              <span className="text-gray-700 text-sm">Password</span>
-              <input type="password" className="mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600" />
-            </label>
+            <TextField
+              classes={['mt-3']}
+              label={'Password'}
+              defaultValue={'password'}
+            />
 
             <div className="flex justify-between items-center mt-4">
               <div>
