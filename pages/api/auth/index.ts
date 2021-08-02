@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 
-const SECRET_KEY = "secret"
+const SECRET_KEY = 'secret'
 
 interface AuthRequest extends NextApiRequest {
   body: {
@@ -13,12 +13,15 @@ interface AuthRequest extends NextApiRequest {
 export default (req: AuthRequest, res: NextApiResponse) => {
   if (req.body.id && req.body.password) {
     const payload = {
-      user: req.body.id
+      user: req.body.id,
     }
-    const token = jwt.sign({
-      exp: Math.floor(Date.now() / 1000) + (60 * 60),
-      payload
-    }, SECRET_KEY)
+    const token = jwt.sign(
+      {
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        payload,
+      },
+      SECRET_KEY
+    )
 
     res.status(200).json({ status: 'ok', token })
   } else {

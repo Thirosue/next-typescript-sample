@@ -7,7 +7,7 @@ import Date from '../components/date'
 import { GetStaticProps } from 'next'
 
 export default function Home({
-  allPostsData
+  allPostsData,
 }: {
   allPostsData: {
     date: string
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
   return {
     props: {
-      allPostsData
-    }
+      allPostsData,
+    },
   }
 }

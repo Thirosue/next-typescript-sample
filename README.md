@@ -1,12 +1,12 @@
 # next-typescript-sample
 
-Create a [Next.js](https://nextjs.org/) sample app powered by [Vercel](https://vercel.com/). 
+Create a [Next.js](https://nextjs.org/) sample app powered by [Vercel](https://vercel.com/).
 
 This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 
 ## Demo Page
 
-* [https://next-typescript-sample-mu.vercel.app/](https://next-typescript-sample-mu.vercel.app/)
+- [https://next-typescript-sample-mu.vercel.app/](https://next-typescript-sample-mu.vercel.app/)
 
 ## SetUp
 
@@ -64,7 +64,7 @@ Vary: Accept-Encoding
 
 #### Get
 
-* findAll
+- findAll
 
 ```
 % http 'localhost:3000/api/products?page=0&rows=5'

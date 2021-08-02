@@ -9,7 +9,7 @@ export const siteTitle = 'Next.js Sample Website'
 
 export default function Layout({
   children,
-  home
+  home,
 }: {
   children: React.ReactNode
   home?: boolean

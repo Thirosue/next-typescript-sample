@@ -100,34 +100,34 @@ const data: Products = {
       quantity: 16,
     },
   ],
-};
+}
 
 const getRandomInt = () => {
-  const max = 1000;
-  const min = 100;
-  return Math.floor(Math.random() * Math.floor(max) + min);
-};
+  const max = 1000
+  const min = 100
+  return Math.floor(Math.random() * Math.floor(max) + min)
+}
 
 const addProduct = (product: Product) => {
-  product.id = getRandomInt();
-  data.products.push(product);
-  return product;
-};
+  product.id = getRandomInt()
+  data.products.push(product)
+  return product
+}
 
 const updateProduct = (product: Product) => {
-  const index = data.products.findIndex((v) => v.id === product.id);
-  console.log(product);
-  data.products.splice(index, 1, product);
-  return product;
-};
+  const index = data.products.findIndex((v) => v.id === product.id)
+  console.log(product)
+  data.products.splice(index, 1, product)
+  return product
+}
 
 const deleteProduct = (id: number) => {
-  data.products = data.products.filter((v) => v.id !== id);
-  return true;
-};
+  data.products = data.products.filter((v) => v.id !== id)
+  return true
+}
 
 const getProducts = () => {
-  return data.products;
-};
+  return data.products
+}
 
-export default { addProduct, updateProduct, deleteProduct, getProducts };
+export default { addProduct, updateProduct, deleteProduct, getProducts }
