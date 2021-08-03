@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint . --ext ts --ext tsx --ext js"
   },
   "dependencies": {
     "date-fns": "2.23.0",
@@ -25,7 +26,12 @@
     "@tailwindcss/typography": "0.4.1",
     "@types/node": "16.4.0",
     "@types/react": "17.0.15",
+    "@typescript-eslint/eslint-plugin": "4.29.0",
+    "@typescript-eslint/parser": "4.29.0",
     "autoprefixer": "10.3.1",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-react": "7.24.0",
     "postcss": "8.3.6",
     "prettier": "2.3.2",
     "tailwindcss": "2.2.7",
