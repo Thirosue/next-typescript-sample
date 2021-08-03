@@ -8,7 +8,9 @@
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
-    "lint": "eslint . --ext ts --ext tsx --ext js"
+    "lint": "eslint . --ext ts --ext tsx --ext js",
+    "test": "jest",
+    "test-all": "yarn lint && yarn type-check && yarn test"
   },
   "husky": {
     "hooks": {
@@ -37,16 +39,21 @@
     "@tailwindcss/forms": "0.3.3",
     "@tailwindcss/line-clamp": "0.2.1",
     "@tailwindcss/typography": "0.4.1",
+    "@testing-library/react": "12.0.0",
+    "@types/jest": "26.0.24",
     "@types/node": "16.4.0",
     "@types/react": "17.0.15",
     "@typescript-eslint/eslint-plugin": "4.29.0",
     "@typescript-eslint/parser": "4.29.0",
     "autoprefixer": "10.3.1",
+    "babel-jest": "27.0.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-react": "7.24.0",
     "husky": "7.0.1",
+    "jest": "27.0.6",
+    "jest-watch-typeahead": "0.6.4",
     "lint-staged": "11.1.1",
     "postcss": "8.3.6",
     "prettier": "2.3.2",
