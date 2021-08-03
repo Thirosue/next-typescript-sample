@@ -116,7 +116,6 @@ const addProduct = (product: Product) => {
 
 const updateProduct = (product: Product) => {
   const index = data.products.findIndex((v) => v.id === product.id)
-  console.log(product)
   data.products.splice(index, 1, product)
   return product
 }

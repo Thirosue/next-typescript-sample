@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import _ from 'lodash'
 import { Product } from '../data/product'
 import data from '../shared/product-data'
 

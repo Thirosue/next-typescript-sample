@@ -14,6 +14,8 @@ interface ProductGetRequest extends NextApiRequest {
   }
 }
 
+const captains = console;
+
 export default (req: ProductGetRequest, res: NextApiResponse) => {
   try {
     const { name, description, page, rows, order, orderBy } = req.query
@@ -37,7 +39,7 @@ export default (req: ProductGetRequest, res: NextApiResponse) => {
       )
     }
     const start = _rows * _page
-    console.log(name, description, start, page, rows, order, orderBy)
+    captains.log(name, description, start, page, rows, order, orderBy)
     const results = {
       count: products.length,
       data: products.slice(start, start + _rows),

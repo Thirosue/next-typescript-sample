@@ -1,12 +1,6 @@
 import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import Link from 'next/link'
-import Date from '../components/date'
-import { GetStaticProps } from 'next'
 
-export default function Login({}) {
+export default function Demo() {
   return (
     <>
       <Head>
@@ -14,7 +8,7 @@ export default function Login({}) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name="referrer" content="always" />
       </Head>
       <div className="mb-12 prose lg:prose">
