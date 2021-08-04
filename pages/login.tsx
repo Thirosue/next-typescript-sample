@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import TextField from '../components/atoms/text-field'
+import { TextFieldType } from '../data'
 
 export default function Login() {
   return (
@@ -52,6 +53,7 @@ export default function Login() {
               classes={['mt-3']}
               label={'Password'}
               defaultValue={'password'}
+              type={TextFieldType.Password}
             />
 
             <div className="flex justify-between items-center mt-4">
