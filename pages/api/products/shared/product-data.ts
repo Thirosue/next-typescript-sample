@@ -102,30 +102,30 @@ const data: Products = {
   ],
 }
 
-const getRandomInt = () => {
+const getRandomInt = (): number => {
   const max = 1000
   const min = 100
   return Math.floor(Math.random() * Math.floor(max) + min)
 }
 
-const addProduct = (product: Product) => {
+const addProduct = (product: Product): Product => {
   product.id = getRandomInt()
   data.products.push(product)
   return product
 }
 
-const updateProduct = (product: Product) => {
+const updateProduct = (product: Product): Product => {
   const index = data.products.findIndex((v) => v.id === product.id)
   data.products.splice(index, 1, product)
   return product
 }
 
-const deleteProduct = (id: number) => {
+const deleteProduct = (id: number): boolean => {
   data.products = data.products.filter((v) => v.id !== id)
   return true
 }
 
-const getProducts = () => {
+const getProducts = (): Product[] => {
   return data.products
 }
 

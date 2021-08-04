@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { Product } from '../data/product'
 import data from '../shared/product-data'
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default (req: NextApiRequest, res: NextApiResponse): void => {
   const product: Product = {
     id: undefined,
     name: req.body.name,

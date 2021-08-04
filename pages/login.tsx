@@ -2,7 +2,7 @@ import Head from 'next/head'
 import TextField from '../components/atoms/text-field'
 import { TextFieldType } from '../data'
 
-export default function Login() {
+export default function Login(): JSX.Element {
   return (
     <>
       <Head>

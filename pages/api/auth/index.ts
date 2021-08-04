@@ -10,7 +10,7 @@ interface AuthRequest extends NextApiRequest {
   }
 }
 
-export default (req: AuthRequest, res: NextApiResponse) => {
+export default (req: AuthRequest, res: NextApiResponse): void => {
   if (req.body.id && req.body.password) {
     const payload = {
       user: req.body.id,

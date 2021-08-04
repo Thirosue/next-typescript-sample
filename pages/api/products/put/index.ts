@@ -3,7 +3,7 @@ import { Product } from '../data/product'
 import { IdRequest } from '../data/id-request'
 import data from '../shared/product-data'
 
-export default (req: IdRequest, res: NextApiResponse) => {
+export default (req: IdRequest, res: NextApiResponse): void => {
   const id = parseInt(req.query.id, 10)
 
   const product: Product = {

@@ -14,9 +14,9 @@ interface ProductGetRequest extends NextApiRequest {
   }
 }
 
-const captains = console;
+const captains = console
 
-export default (req: ProductGetRequest, res: NextApiResponse) => {
+export default (req: ProductGetRequest, res: NextApiResponse): void => {
   try {
     const { name, description, page, rows, order, orderBy } = req.query
     const _rows = parseInt(rows)

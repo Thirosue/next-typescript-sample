@@ -13,7 +13,7 @@ export default function Post({
     date: string
     contentHtml: string
   }
-}) {
+}): JSX.Element {
   return (
     <Layout>
       <Head>

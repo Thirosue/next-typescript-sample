@@ -14,7 +14,7 @@ export default function Home({
     title: string
     id: string
   }[]
-}) {
+}): JSX.Element {
   return (
     <Layout home>
       <Head>

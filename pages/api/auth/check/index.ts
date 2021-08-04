@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 
 const SECRET_KEY = 'secret'
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export default (req: NextApiRequest, res: NextApiResponse): void => {
   let token = ''
   if (
     req.headers.authorization &&
