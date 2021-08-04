@@ -1,8 +1,11 @@
+import { useState } from "react"
 import Head from 'next/head'
 import TextField from '../components/atoms/text-field'
 import { TextFieldType } from '../data'
 
 export default function Login(): JSX.Element {
+  const [password, setPassword] = useState('')
+
   return (
     <>
       <Head>
@@ -52,8 +55,8 @@ export default function Login(): JSX.Element {
             <TextField
               classes={['mt-3']}
               label={'Password'}
-              defaultValue={'password'}
               type={TextFieldType.Password}
+              onChange={(e: any) => setPassword(e.target.value)}
             />
 
             <div className="flex justify-between items-center mt-4">
