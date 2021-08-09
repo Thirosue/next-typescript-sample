@@ -6,12 +6,16 @@ export const TextField = ({
   type,
   classes,
   value,
+  error,
+  helperText,
   onChange
 }: {
   label: string
   type?: TextFieldType
   classes?: string[]
   value: string
+  error: boolean
+  helperText?: string
   onChange: (...args: any[]) => any
 }): JSX.Element => {
   const className = ['block', ...(classes ? classes : [])].join(' ')
@@ -31,6 +35,7 @@ export const TextField = ({
         value={val}
         onChange={handleChange}
       />
+      {error && <p className="mt-2 text-red-500 text-xs">{helperText}</p>}
     </label>
   )
 }

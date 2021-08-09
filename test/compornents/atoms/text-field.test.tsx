@@ -11,6 +11,7 @@ describe('TextField components', () => {
         type={TextFieldType.Email}
         value={'defalut'}
         classes={['test1', 'test2']}
+        error={false}
         onChange={() => console.log('hoge')}
       />,
       {}
