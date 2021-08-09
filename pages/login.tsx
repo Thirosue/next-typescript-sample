@@ -4,7 +4,7 @@ import TextField from '../components/atoms/text-field'
 import { TextFieldType } from '../data'
 
 export default function Login(): JSX.Element {
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('password')
 
   return (
     <>
@@ -56,8 +56,10 @@ export default function Login(): JSX.Element {
               classes={['mt-3']}
               label={'Password'}
               type={TextFieldType.Password}
+              value={password}
               onChange={(e: any) => setPassword(e.target.value)}
             />
+            {password}
 
             <div className="flex justify-between items-center mt-4">
               <div>

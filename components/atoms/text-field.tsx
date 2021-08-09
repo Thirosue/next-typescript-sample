@@ -5,17 +5,17 @@ export const TextField = ({
   label,
   type,
   classes,
-  defaultValue,
+  value,
   onChange
 }: {
   label: string
   type?: TextFieldType
   classes?: string[]
-  defaultValue?: string
-  onChange: Function
+  value: string
+  onChange: (...args: any[]) => any
 }): JSX.Element => {
   const className = ['block', ...(classes ? classes : [])].join(' ')
-  const [value, setValue] = useState(defaultValue ? defaultValue : '')
+  const [val, setValue] = useState(value)
 
   const handleChange = (event: any): void => {
     setValue(event.target.value)
@@ -28,7 +28,7 @@ export const TextField = ({
       <input
         type={type ? type : TextFieldType.Text}
         className="mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600"
-        value={value}
+        value={val}
         onChange={handleChange}
       />
     </label>

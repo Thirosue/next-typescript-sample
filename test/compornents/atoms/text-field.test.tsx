@@ -9,8 +9,9 @@ describe('TextField components', () => {
       <TextField
         label={'test'}
         type={TextFieldType.Email}
-        defaultValue={'defalut'}
+        value={'defalut'}
         classes={['test1', 'test2']}
+        onChange={() => console.log('hoge')}
       />,
       {}
     )
