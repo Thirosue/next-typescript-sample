@@ -54,7 +54,7 @@
     "husky": "7.0.1",
     "jest": "27.0.6",
     "jest-watch-typeahead": "0.6.4",
-    "lint-staged": "11.1.1",
+    "lint-staged": "11.1.2",
     "postcss": "8.3.6",
     "prettier": "2.3.2",
     "tailwindcss": "2.2.7",
