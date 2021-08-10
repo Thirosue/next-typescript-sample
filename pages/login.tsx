@@ -1,10 +1,17 @@
-import { useState } from "react"
 import Head from 'next/head'
-import TextField from '../components/atoms/text-field'
+import { useForm } from "react-hook-form"
+import { FormLabel, FormErrorMessage } from '../components/atoms'
 import { TextFieldType } from '../data'
 
+const captains = console
+
+type FormValues = {
+  email: string
+  password: string
+}
+
 export default function Login(): JSX.Element {
-  const [password, setPassword] = useState('password')
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>()
 
   return (
     <>
@@ -43,23 +50,28 @@ export default function Login(): JSX.Element {
             </span>
           </div>
 
-          <form className="mt-4" action="/" method="GET">
-            <label className="block">
-              <span className="text-gray-700 text-sm">Email</span>
+          <form className="mt-4" onSubmit={handleSubmit((data) => captains.log(data))}>
+            <label className='block'>
+              <FormLabel>Email</FormLabel>
               <input
-                type="email"
-                className="mt-1 border-gray-300 block w-full rounded-md focus:border-indigo-600"
+                id="email"
+                type={TextFieldType.Password}
+                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${errors.email ? "border-red-400" : ""}`}
+                {...register("email", { required: '入力してください' })}
               />
+              {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
             </label>
 
-            <TextField
-              classes={['mt-3']}
-              label={'Password'}
-              type={TextFieldType.Password}
-              value={password}
-              onChange={(e: any) => setPassword(e.target.value)}
-            />
-            {password}
+            <label className='block mt-3'>
+              <FormLabel>Password</FormLabel>
+              <input
+                id="password"
+                type={TextFieldType.Password}
+                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${errors.password ? "border-red-400" : ""}`}
+                {...register("password", { required: '入力してください' })}
+              />
+              {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
+            </label>
 
             <div className="flex justify-between items-center mt-4">
               <div>
