@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import _ from 'lodash'
+import _, { Many } from 'lodash'
 import data from './shared/product-data'
 import { Product } from './data/product'
 
@@ -25,7 +25,7 @@ export default (req: ProductGetRequest, res: NextApiResponse): void => {
     let products = _.orderBy(data.getProducts(), 'id', 'asc')
     if (order) {
       if (['name', 'description'].includes(orderBy)) {
-        products = _.orderBy(products, orderBy, order)
+        products = _.orderBy(products, orderBy, order as Many<"asc" | "desc">)
       }
     }
     if (name) {
