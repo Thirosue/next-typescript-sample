@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import { useForm } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
 import { FormLabel, FormErrorMessage } from '../components/atoms'
 import { TextFieldType } from '../data'
 
@@ -10,8 +12,21 @@ type FormValues = {
   password: string
 }
 
+const schema = yup.object().shape({
+  email: yup.string().required('入力してください'),
+  password: yup
+    .string()
+    .required('入力してください')
+    .matches(
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      "アルファベット（大文字小文字混在）と数字と特殊記号を組み合わせて8文字以上で入力してください"
+    ),
+})
+
 export default function Login(): JSX.Element {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>()
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+    resolver: yupResolver(schema)
+  })
 
   return (
     <>
@@ -55,11 +70,11 @@ export default function Login(): JSX.Element {
               <FormLabel>Email</FormLabel>
               <input
                 id="email"
-                type={TextFieldType.Password}
+                type={TextFieldType.Email}
                 className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${errors.email ? "border-red-400" : ""}`}
-                {...register("email", { required: '入力してください' })}
+                {...register("email")}
               />
-              {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
+              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
             </label>
 
             <label className='block mt-3'>
@@ -68,9 +83,9 @@ export default function Login(): JSX.Element {
                 id="password"
                 type={TextFieldType.Password}
                 className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${errors.password ? "border-red-400" : ""}`}
-                {...register("password", { required: '入力してください' })}
+                {...register("password")}
               />
-              {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
+              <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
             </label>
 
             <div className="flex justify-between items-center mt-4">
