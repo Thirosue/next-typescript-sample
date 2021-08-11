@@ -7,7 +7,36 @@ interface Map {
 }
 
 const ColorSetting: Map[] = [
-  { key: 'primary', class: ['bg-indigo-600', 'hover:bg-indigo-500'] },
+  {
+    key: 'primary',
+    class: [
+      'text-white',
+      'bg-indigo-600',
+      'hover:bg-indigo-700',
+      'focus:ring-indigo-500',
+      'border-transparent',
+    ],
+  },
+  {
+    key: 'default',
+    class: [
+      'text-gray-700',
+      'bg-white',
+      'hover:bg-gray-100',
+      'focus:ring-indigo-500',
+      'border-gray-300',
+    ],
+  },
+  {
+    key: 'danger',
+    class: [
+      'text-white',
+      'bg-red-600',
+      'hover:bg-red-700',
+      'focus:ring-red-500',
+      'border-transparent',
+    ],
+  },
 ]
 
 const SizeSetting: Map[] = [
@@ -19,13 +48,15 @@ export const Button = ({
   color = 'default',
   size = 'small',
   fullWidth = false,
+  disabled = false,
   classes = [],
   onClick,
 }: {
   children: ReactNode
-  color?: Many<'default' | 'primary' | 'secondary'>
+  color?: Many<'default' | 'primary' | 'secondary' | 'danger'>
   size?: Many<'large' | 'medium' | 'small'>
   fullWidth?: boolean
+  disabled?: boolean
   classes?: string[]
   onClick?: (event: any) => Promise<void>
 }): JSX.Element => {
@@ -40,9 +71,13 @@ export const Button = ({
     )
   )
   const className = [
-    'text-center',
+    'inline-flex',
+    'justify-center',
     'rounded-md',
-    'text-white',
+    'border',
+    'focus:outline-none',
+    'focus:ring-2',
+    'focus:ring-offset-2',
     ..._color,
     ..._size,
     ...classes,
@@ -58,7 +93,9 @@ export const Button = ({
 
   return (
     <button
-      className={`${className} ${fullWidth ? 'w-full' : ''}`}
+      className={`${className} ${fullWidth ? 'w-full' : ''} ${
+        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
       onClick={handleSubmit}
     >
       {children}
