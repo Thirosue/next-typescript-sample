@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "test": "jest",
-    "test-all": "yarn lint && yarn type-check && yarn test"
+    "test-all": "yarn lint && yarn type-check && yarn test",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
@@ -54,7 +55,7 @@
     "eslint-config-next": "11.0.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-react": "7.24.0",
-    "husky": "7.0.1",
+    "husky": "^7.0.0",
     "jest": "27.0.6",
     "jest-watch-typeahead": "0.6.4",
     "lint-staged": "11.1.2",

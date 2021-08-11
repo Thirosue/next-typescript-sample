@@ -69,8 +69,9 @@ export default function Login(): JSX.Element {
               <input
                 id="email"
                 type={TextFieldType.Email}
-                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${errors.email ? 'border-red-400' : ''
-                  }`}
+                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+                  errors.email ? 'border-red-400' : ''
+                }`}
                 {...register('email')}
               />
               <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
@@ -81,8 +82,9 @@ export default function Login(): JSX.Element {
               <input
                 id="password"
                 type={TextFieldType.Password}
-                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${errors.password ? 'border-red-400' : ''
-                  }`}
+                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+                  errors.password ? 'border-red-400' : ''
+                }`}
                 {...register('password')}
               />
               <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
