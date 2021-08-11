@@ -25,7 +25,7 @@ export default (req: ProductGetRequest, res: NextApiResponse): void => {
     let products = _.orderBy(data.getProducts(), 'id', 'asc')
     if (order) {
       if (['name', 'description'].includes(orderBy)) {
-        products = _.orderBy(products, orderBy, order as Many<"asc" | "desc">)
+        products = _.orderBy(products, orderBy, order as Many<'asc' | 'desc'>)
       }
     }
     if (name) {

@@ -1,5 +1,5 @@
 import { TextFieldType } from '../../data'
-import { useState } from "react"
+import { useState } from 'react'
 
 export const TextField = ({
   label,
@@ -8,7 +8,7 @@ export const TextField = ({
   value,
   error,
   helperText,
-  onChange
+  onChange,
 }: {
   label: string
   type?: TextFieldType

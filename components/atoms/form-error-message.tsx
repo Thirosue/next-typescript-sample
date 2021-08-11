@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
 export const FormErrorMessage = ({
   children,
@@ -7,11 +7,13 @@ export const FormErrorMessage = ({
   children: ReactNode
   classes?: string[]
 }): JSX.Element => {
-  const className = ['text-red-500', 'text-xs', ...(classes ? classes : [])].join(' ')
+  const className = [
+    'text-red-500',
+    'text-xs',
+    ...classes,
+  ].join(' ')
 
-  return (
-    <p className={className}>{children}</p>
-  )
+  return <p className={className}>{children}</p>
 }
 
 export default FormErrorMessage
