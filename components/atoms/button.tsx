@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react'
+import { useState } from 'react'
 import _, { Many } from 'lodash'
 
 interface Map {
@@ -52,7 +52,7 @@ export const Button = ({
   classes = [],
   onClick,
 }: {
-  children: ReactNode
+  children: React.ReactNode
   color?: Many<'default' | 'primary' | 'secondary' | 'danger'>
   size?: Many<'large' | 'medium' | 'small'>
   fullWidth?: boolean

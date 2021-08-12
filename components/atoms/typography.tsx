@@ -1,4 +1,3 @@
-import { ReactNode } from 'react'
 import _, { Many } from 'lodash'
 
 interface Map {
@@ -7,7 +6,9 @@ interface Map {
 }
 
 const VariantSetting: Map[] = [
-  { key: 'h4', class: ['text-gray-700', 'text-2xl', 'font-semibold'] },
+  { key: 'h4', class: ['text-gray-900', 'text-2xl', 'font-semibold'] },
+  { key: 'h5', class: ['text-gray-900', 'text-xl', 'font-semibold'] },
+  { key: 'h6', class: ['text-gray-900', 'text-lg', 'font-semibold'] },
   { key: 'body2', class: ['text-gray-600', 'text-sm'] },
 ]
 
@@ -16,7 +17,7 @@ export const Typography = ({
   variant = 'body2',
   classes = [],
 }: {
-  children: ReactNode
+  children: React.ReactNode
   variant?: Many<
     | 'h1'
     | 'h2'

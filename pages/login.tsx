@@ -10,6 +10,7 @@ import {
   Link,
   Typography,
 } from '../components/atoms'
+import { Confirm } from '../components/template'
 import { TextFieldType } from '../data'
 
 const captains = console
@@ -42,6 +43,13 @@ export default function Login(): JSX.Element {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   })
+
+  const handleConfirm = (_: any): Promise<void> => {
+    return new Promise((resolve) => {
+      captains.log('Submit')
+      resolve()
+    })
+  }
 
   return (
     <>
@@ -115,6 +123,16 @@ export default function Login(): JSX.Element {
           </form>
         </div>
       </div>
+      <Confirm
+        title={'Deactivate account'}
+        onConfirm={handleConfirm}
+        alert={true}
+      >
+        <p className="text-sm text-gray-500">
+          Are you sure you want to deactivate your account? All of your data
+          will be permanently removed. This action cannot be undone.
+        </p>
+      </Confirm>
     </>
   )
 }

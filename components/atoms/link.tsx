@@ -1,11 +1,9 @@
-import { ReactNode } from 'react'
-
 export const Link = ({
   children,
   href = '#',
   onClick,
 }: {
-  children: ReactNode
+  children: React.ReactNode
   href?: string
   onClick?: (event: any) => void
 }): JSX.Element => {
