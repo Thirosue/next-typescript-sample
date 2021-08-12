@@ -58,7 +58,7 @@ export const Button = ({
   fullWidth?: boolean
   disabled?: boolean
   classes?: string[]
-  onClick?: (event: any) => Promise<void>
+  onClick?: (event: any) => void
 }): JSX.Element => {
   const _color = _.head(
     ColorSetting.filter((map: Map) => map.key === color).map(
@@ -87,7 +87,8 @@ export const Button = ({
   const handleSubmit = (event: any) => {
     if (onClick && !processing) {
       setProcessing(true)
-      onClick(event).finally(() => setProcessing(false))
+      onClick(event)
+      setProcessing(false)
     }
   }
 
