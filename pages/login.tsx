@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -11,7 +12,9 @@ import {
   Typography,
 } from '../components/atoms'
 import { Confirm } from '../components/template'
+import { ToggleButton } from '../components/toggle'
 import { TextFieldType } from '../data'
+import ConfirmProvider from '../context/confirmProvider'
 
 const captains = console
 
@@ -44,11 +47,15 @@ export default function Login(): JSX.Element {
     resolver: yupResolver(schema),
   })
 
-  const handleConfirm = (_: any): Promise<void> => {
-    return new Promise((resolve) => {
-      captains.log('Submit')
-      resolve()
-    })
+  // For Modal
+  const [open, setOpen] = useState(false)
+
+  const handleConfirm = (_: any): void => {
+    captains.log('Submit')
+  }
+
+  const handleClose = (_: any): void => {
+    setOpen(false)
   }
 
   return (
@@ -61,78 +68,90 @@ export default function Login(): JSX.Element {
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name="referrer" content="always" />
       </Head>
-      <div className="flex justify-center items-center h-screen bg-gray-200 px-6">
-        <div className="p-6 max-w-sm w-full bg-white shadow-md rounded-md">
-          <div className="flex justify-center items-center">
-            <Logo />
-            <Typography variant="h4">Dashboard</Typography>
+      <ConfirmProvider>
+        <div className="flex justify-center items-center h-screen bg-gray-200 px-6">
+          <div className="p-6 max-w-sm w-full bg-white shadow-md rounded-md">
+            <div className="flex justify-center items-center">
+              <Logo />
+              <Typography variant="h4">Dashboard</Typography>
+            </div>
+
+            <form
+              className="mt-4"
+              onSubmit={handleSubmit((data) => captains.log(data))}
+            >
+              <label className="block">
+                <FormLabel>Email</FormLabel>
+                <input
+                  id="email"
+                  type={TextFieldType.Email}
+                  className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+                    errors.email ? 'border-red-400' : ''
+                  }`}
+                  {...register('email')}
+                />
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+              </label>
+
+              <label className="block mt-3">
+                <FormLabel>Password</FormLabel>
+                <input
+                  id="password"
+                  type={TextFieldType.Password}
+                  className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+                    errors.password ? 'border-red-400' : ''
+                  }`}
+                  {...register('password')}
+                />
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+              </label>
+
+              <div className="flex justify-between items-center mt-4">
+                <div>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="checkbox"
+                      className="form-checkbox text-indigo-600"
+                      {...register('rememberMe')}
+                    />
+                    <Typography classes={['mx-2']}>Remember me</Typography>
+                  </label>
+                </div>
+
+                <div>
+                  <Link onClick={() => setOpen(true)}>
+                    Forgot your password?
+                  </Link>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <Button color={'primary'} fullWidth={true}>
+                  Sign in
+                </Button>
+              </div>
+            </form>
+            <ToggleButton />
           </div>
-
-          <form
-            className="mt-4"
-            onSubmit={handleSubmit((data) => captains.log(data))}
-          >
-            <label className="block">
-              <FormLabel>Email</FormLabel>
-              <input
-                id="email"
-                type={TextFieldType.Email}
-                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
-                  errors.email ? 'border-red-400' : ''
-                }`}
-                {...register('email')}
-              />
-              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
-            </label>
-
-            <label className="block mt-3">
-              <FormLabel>Password</FormLabel>
-              <input
-                id="password"
-                type={TextFieldType.Password}
-                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
-                  errors.password ? 'border-red-400' : ''
-                }`}
-                {...register('password')}
-              />
-              <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
-            </label>
-
-            <div className="flex justify-between items-center mt-4">
-              <div>
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox text-indigo-600"
-                    {...register('rememberMe')}
-                  />
-                  <Typography classes={['mx-2']}>Remember me</Typography>
-                </label>
-              </div>
-
-              <div>
-                <Link>Forgot your password?</Link>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <Button color={'primary'} fullWidth={true}>
-                Sign in
-              </Button>
-            </div>
-          </form>
         </div>
-      </div>
-      <Confirm
-        title={'Deactivate account'}
-        onConfirm={handleConfirm}
-        alert={true}
-      >
-        <p className="text-sm text-gray-500">
-          Are you sure you want to deactivate your account? All of your data
-          will be permanently removed. This action cannot be undone.
-        </p>
-      </Confirm>
+        {open && (
+          <>
+            <Confirm
+              title={'Deactivate account'}
+              onSubmit={handleConfirm}
+              onClose={handleClose}
+              onCancel={handleClose}
+              icon={'alert'}
+              alert={true}
+            >
+              <p className="text-sm text-gray-500">
+                Are you sure you want to deactivate your account? All of your
+                data will be permanently removed. This action cannot be undone.
+              </p>
+            </Confirm>
+          </>
+        )}
+      </ConfirmProvider>
     </>
   )
 }
