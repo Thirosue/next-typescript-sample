@@ -113,7 +113,9 @@ export default function Login(): JSX.Element {
                       className="form-checkbox text-indigo-600"
                       {...register('rememberMe')}
                     />
-                    <Typography classes={['mx-2']}>Remember me</Typography>
+                    <Typography variant={'body2'} classes={['mx-2']}>
+                      Remember me
+                    </Typography>
                   </label>
                 </div>
 

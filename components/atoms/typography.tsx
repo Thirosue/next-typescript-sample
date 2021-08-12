@@ -6,15 +6,20 @@ interface Map {
 }
 
 const VariantSetting: Map[] = [
+  { key: 'h2', class: ['text-gray-900', 'text-5xl', 'font-semibold'] },
+  { key: 'h3', class: ['text-gray-900', 'text-4xl', 'font-semibold'] },
   { key: 'h4', class: ['text-gray-900', 'text-2xl', 'font-semibold'] },
   { key: 'h5', class: ['text-gray-900', 'text-xl', 'font-semibold'] },
   { key: 'h6', class: ['text-gray-900', 'text-lg', 'font-semibold'] },
-  { key: 'body2', class: ['text-gray-600', 'text-sm'] },
+  { key: 'subtitle1', class: ['prose', 'font-semibold'] },
+  { key: 'subtitle2', class: ['prose', 'prose-sm', 'font-semibold'] },
+  { key: 'body1', class: ['prose'] },
+  { key: 'body2', class: ['prose', 'prose-sm'] },
 ]
 
 export const Typography = ({
   children,
-  variant = 'body2',
+  variant = 'body1',
   classes = [],
 }: {
   children: React.ReactNode
@@ -29,11 +34,6 @@ export const Typography = ({
     | 'subtitle2'
     | 'body1'
     | 'body2'
-    | 'caption'
-    | 'button'
-    | 'overline'
-    | 'srOnly'
-    | 'inherit'
   >
   classes?: string[]
 }): JSX.Element => {
@@ -44,7 +44,11 @@ export const Typography = ({
   )
   const className = [..._classes, ...classes].join(' ')
 
-  return <span className={className}>{children}</span>
+  return (
+    <div>
+      <span className={className}>{children}</span>
+    </div>
+  )
 }
 
 export default Typography

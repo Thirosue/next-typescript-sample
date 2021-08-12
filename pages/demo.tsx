@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import ConfirmProvider from '../context/confirmProvider'
 import useConfirm from '../hooks/useConfirm'
-import { Link } from '../components/atoms'
+import { Typography, Link } from '../components/atoms'
 
 const captains = console
 
@@ -116,20 +116,32 @@ export default function Demo(): JSX.Element {
           </div>
         </form>
         <div className="mt-12 mb-12 prose lg:prose">
-          <h1>@tailwindcss/typography demo</h1>
+          <h1>Typography demo</h1>
         </div>
-        <div className="prose lg:prose-xl">
-          <h1>Garlic bread with cheese: What the science tells us</h1>
-          <p>
+        <div>
+          <Typography variant={'h2'}>h2. Heading</Typography>
+          <Typography variant={'h3'}>h3. Heading</Typography>
+          <Typography variant={'h4'}>h4. Heading</Typography>
+          <Typography variant={'h5'}>h5. Heading</Typography>
+          <Typography variant={'h6'}>h6. Heading</Typography>
+          <Typography variant={'subtitle1'}>
+            subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Quos blanditiis tenetur
+          </Typography>
+          <Typography variant={'subtitle2'}>
+            subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Quos blanditiis tenetur
+          </Typography>
+          <Typography>
             For years parents have espoused the health benefits of eating garlic
             bread with cheese to their children, with the food earning such an
             iconic status in our culture that kids will often dress up as warm,
             cheesy loaf for Halloween.
-          </p>
-          <p>
+          </Typography>
+          <Typography variant={'body2'}>
             But a recent study shows that the celebrated appetizer may be linked
             to a series of rabies cases springing up around the country.
-          </p>
+          </Typography>
         </div>
         <div className="mt-12 mb-12 prose lg:prose">
           <h1>@tailwindcss/line-clamp Plugin demo</h1>
