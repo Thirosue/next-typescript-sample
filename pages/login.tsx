@@ -12,7 +12,6 @@ import {
   Typography,
 } from '../components/atoms'
 import { Confirm } from '../components/template'
-import { ToggleButton } from '../components/toggle'
 import { TextFieldType } from '../data'
 import ConfirmProvider from '../context/confirmProvider'
 
@@ -131,7 +130,6 @@ export default function Login(): JSX.Element {
                 </Button>
               </div>
             </form>
-            <ToggleButton />
           </div>
         </div>
         {open && (

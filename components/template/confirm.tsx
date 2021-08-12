@@ -17,8 +17,8 @@ const IconMapping: Map[] = [
     key: 'info',
     element: (
       <>
-        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-50 sm:mx-0 sm:h-10 sm:w-10">
-          <FontAwesomeIcon color={'blue'} icon={faExclamation} />
+        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-600 sm:mx-0 sm:h-10 sm:w-10">
+          <FontAwesomeIcon color={'white'} icon={faExclamation} />
         </div>
       </>
     ),
@@ -27,8 +27,8 @@ const IconMapping: Map[] = [
     key: 'warn',
     element: (
       <>
-        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 sm:mx-0 sm:h-10 sm:w-10">
-          <FontAwesomeIcon icon={faExclamationTriangle} />
+        <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-yellow-200 sm:mx-0 sm:h-10 sm:w-10">
+          <FontAwesomeIcon icon={faExclamation} />
         </div>
       </>
     ),
@@ -111,7 +111,7 @@ export const Layout = ({
             >
               {confirmationText}
             </Button>
-            {alert && (
+            {!alert && (
               <>
                 <Button
                   classes={['mt-3', 'sm:ml-3', 'sm:w-auto', 'sm:mt-0']}
