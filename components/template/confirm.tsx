@@ -2,10 +2,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faExclamation,
   faExclamationTriangle,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import _, { Many } from 'lodash'
 import Typography from '../atoms/typography'
 import Button from '../atoms/button'
+import Link from '../atoms/link'
 
 interface Map {
   key: string
@@ -55,6 +57,7 @@ export const Layout = ({
   onCancel,
   icon,
   alert = false,
+  closable = false,
 }: {
   title: string
   children: React.ReactNode
@@ -65,6 +68,7 @@ export const Layout = ({
   onCancel: (event: any) => void
   icon?: Many<'info' | 'warn' | 'alert'>
   alert?: boolean
+  closable?: boolean
 }): JSX.Element => {
   const DialogIcon = () =>
     _.head(
@@ -94,12 +98,23 @@ export const Layout = ({
         </span>
         <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-            <div className="sm:flex sm:items-start">
-              {icon && DialogIcon()}
-              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                {title && <Typography variant={'h6'}>{title}</Typography>}
-                <div className="mt-2">{children}</div>
+            <div className="flex justify-between">
+              <div>
+                <div className="sm:flex sm:items-start">
+                  {icon && DialogIcon()}
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    {title && <Typography variant={'h6'}>{title}</Typography>}
+                    <div className="mt-2">{children}</div>
+                  </div>
+                </div>
               </div>
+              {closable && (
+                <>
+                  <Link onClick={onClose}>
+                    <FontAwesomeIcon color={'gray'} icon={faTimes} />
+                  </Link>
+                </>
+              )}
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
