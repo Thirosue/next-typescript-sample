@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from 'react'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 
+import 'react-toastify/dist/ReactToastify.css' // For Toast
 import '../styles/global.css'
 
 type NextPageWithLayout = NextPage & {

@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import { toast } from 'react-toastify'
 import useConfirm from '../hooks/useConfirm'
 import { Typography, Link } from '../components/atoms'
 import { SimpleLayout } from '../components/template'
@@ -52,6 +53,26 @@ export const Dilalog: React.FC = () => {
   return (
     <div className="mt-2">
       <Link onClick={handleClick}>open alert dialog?</Link>
+    </div>
+  )
+}
+
+export const Toast: React.FC = () => {
+  const notify = () => toast.success('Wow so easy!')
+
+  return (
+    <div className="mt-2">
+      <Link onClick={notify}>Success!</Link>
+    </div>
+  )
+}
+
+export const ErrorToast: React.FC = () => {
+  const notify = () => toast.error('Wow so easy!')
+
+  return (
+    <div className="mt-2">
+      <Link onClick={notify}>Error!</Link>
     </div>
   )
 }
@@ -154,6 +175,15 @@ export default function Demo(): JSX.Element {
       </div>
       <div className="ml-4 mb-4">
         <HtlmDilalog />
+      </div>
+      <div className="mt-12 mb-12 prose lg:prose">
+        <h1>Toast demo</h1>
+      </div>
+      <div className="ml-4 mb-4">
+        <Toast />
+      </div>
+      <div className="ml-4 mb-4">
+        <ErrorToast />
       </div>
     </>
   )
