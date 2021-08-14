@@ -190,5 +190,5 @@ export default function Demo(): JSX.Element {
 }
 
 Demo.getLayout = function getLayout(page: ReactElement) {
-  return <SimpleLayout>{page}</SimpleLayout>
+  return <SimpleLayout title={'デモ'}>{page}</SimpleLayout>
 }

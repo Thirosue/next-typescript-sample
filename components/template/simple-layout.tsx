@@ -2,16 +2,16 @@ import { ToastContainer } from 'react-toastify'
 import ConfirmProvider from '../../context/confirmProvider'
 import Seo from './seo'
 
-export const siteTitle = 'Next.js Sample Website'
-
 export const SimpleLayout = ({
   children,
+  title,
 }: {
   children: React.ReactNode
+  title: string
 }): JSX.Element => {
   return (
     <div>
-      <Seo title={siteTitle} />
+      <Seo title={title} />
       <header></header>
       <main>
         <ConfirmProvider>{children}</ConfirmProvider>

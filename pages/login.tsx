@@ -152,5 +152,5 @@ export default function Login(): JSX.Element {
 }
 
 Login.getLayout = function getLayout(page: ReactElement) {
-  return <SimpleLayout>{page}</SimpleLayout>
+  return <SimpleLayout title={'ログイン'}>{page}</SimpleLayout>
 }
