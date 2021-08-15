@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, MutableRefObject } from 'react'
 
-const useUnmountRef = () => {
+const useUnmountRef = (): MutableRefObject<boolean> => {
   const unmountRef = useRef(false)
 
   useEffect(
