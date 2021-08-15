@@ -1,4 +1,5 @@
 import { ToastContainer } from 'react-toastify'
+import GlobalStateProvider from '../../context/global-state-provider'
 import ConfirmProvider from '../../context/confirm-provider'
 import Seo from './seo'
 
@@ -14,7 +15,9 @@ export const SimpleLayout = ({
       <Seo title={title} />
       <header></header>
       <main>
-        <ConfirmProvider>{children}</ConfirmProvider>
+        <ConfirmProvider>
+          <GlobalStateProvider>{children}</GlobalStateProvider>
+        </ConfirmProvider>
         <ToastContainer
           autoClose={5000}
           hideProgressBar={false}

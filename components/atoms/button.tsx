@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import _, { Many } from 'lodash'
 
 interface Map {
@@ -82,13 +81,10 @@ export const Button = ({
     ..._size,
     ...classes,
   ].join(' ')
-  const [processing, setProcessing] = useState(false)
 
   const handleSubmit = (event: any) => {
-    if (onClick && !processing) {
-      setProcessing(true)
+    if (onClick && !disabled) {
       onClick(event)
-      setProcessing(false)
     }
   }
 

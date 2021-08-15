@@ -1,8 +1,9 @@
-import { useState, ReactElement } from 'react'
+import { useState, useContext, ReactElement } from 'react'
 import Head from 'next/head'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import GlobalContext from '../context/global-context'
 import Logo from '../components/logo'
 import {
   FormLabel,
@@ -37,6 +38,8 @@ const schema = yup.object().shape({
 })
 
 export default function Login(): JSX.Element {
+  const context = useContext(GlobalContext)
+
   const {
     register,
     handleSubmit,
@@ -44,6 +47,20 @@ export default function Login(): JSX.Element {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   })
+
+  const doSubmit = async (data: any): Promise<void> => {
+    captains.log(data)
+    context.startProcess()
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+    context.endProcess()
+    context.updateState({
+      signedIn: true,
+      session: {
+        username: 'hoge',
+        sub: 'sub',
+      },
+    })
+  }
 
   // For Modal
   const [open, setOpen] = useState(false)
@@ -73,10 +90,7 @@ export default function Login(): JSX.Element {
             <Typography variant="h4">Dashboard</Typography>
           </div>
 
-          <form
-            className="mt-4"
-            onSubmit={handleSubmit((data) => captains.log(data))}
-          >
+          <form className="mt-4" onSubmit={handleSubmit(doSubmit)}>
             <label className="block">
               <FormLabel>Email</FormLabel>
               <input
