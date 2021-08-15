@@ -2,9 +2,8 @@ import { useState, useCallback, MutableRefObject } from 'react'
 
 const useSafeState = (
   unmountRef: MutableRefObject<boolean>,
-  defaultValue: any
+  defaultValue: any // eslint-disable-line
 ): any[] => {
-  // eslint-disable-line
   const [state, changeState] = useState(defaultValue)
   const wrapChangeState = useCallback(
     (value) => {

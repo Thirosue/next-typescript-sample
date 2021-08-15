@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { DialogOptions } from '../data/dialog-options'
-import ConfirmContext from './confirmContext'
+import ConfirmContext from './confirm-context'
 import Confirm from '../components/template/confirm'
 
 const DEFAULT_OPTIONS: DialogOptions = {

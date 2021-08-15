@@ -1,5 +1,5 @@
 import { ToastContainer } from 'react-toastify'
-import ConfirmProvider from '../../context/confirmProvider'
+import ConfirmProvider from '../../context/confirm-provider'
 import Seo from './seo'
 
 export const SimpleLayout = ({
