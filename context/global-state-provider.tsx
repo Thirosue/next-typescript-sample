@@ -1,49 +1,45 @@
 import { useState, useEffect } from 'react'
-// import _ from 'lodash'
+import _ from 'lodash'
+import { parseCookies, setCookie } from 'nookies'
 import GlobalContext from './global-context'
 import Progress from '../components/progress'
 import { GlobalState } from '../data/global-state'
+import Const from '../const'
 
 const captains = console
 
-// Todo リロードで値を復元する
-// const initState = (): GlobalState => {
-//     let state = _.attempt(JSON.parse.bind(null, localStorage.getItem('state'))) as GlobalState;
-//     captains.log(state)
-//     if (_.isError(state) || !state) {
-//         state = {
-//             ...{
-//                 signedIn: false,
-//                 processing: false,
-//                 session: {
-//                     username: undefined,
-//                     sub: undefined,
-//                     email_verified: false
-//                 }
-//             }
-//         };
-//     }
-//     return {
-//         ...state,
-//         processing: false,
-//     }
-// }
+const getInitState = () => ({
+  signedIn: false,
+  processing: false,
+  session: {
+    username: undefined,
+    sub: undefined,
+    email_verified: false,
+  },
+})
+
+const initState = (): GlobalState => {
+  const cookie = parseCookies(null)
+  let state = cookie.state
+    ? (_.attempt(JSON.parse.bind(null, cookie.state)) as GlobalState)
+    : getInitState()
+
+  captains.log(state)
+  if (_.isError(state) || !state) {
+    state = getInitState()
+  }
+  return {
+    ...state,
+    processing: false,
+  }
+}
 
 const GlobalStateProvider = ({
   children,
 }: {
   children: React.ReactNode
 }): JSX.Element => {
-  const [state, setState] = useState({
-    ...{
-      signedIn: false,
-      processing: false,
-      session: {
-        username: undefined,
-        sub: undefined,
-      },
-    },
-  })
+  const [state, setState] = useState(initState)
 
   const updateState = (value: GlobalState): void => {
     setState({ ...state, ...value })
@@ -65,8 +61,6 @@ const GlobalStateProvider = ({
   }
 
   useEffect(() => {
-    captains.log(state)
-
     async function checkLogin() {
       // nop
     }
@@ -75,7 +69,11 @@ const GlobalStateProvider = ({
   }, []) // eslint-disable-line
 
   useEffect(() => {
-    localStorage.setItem('state', JSON.stringify(state))
+    setCookie(null, 'state', JSON.stringify(state), {
+      // 60秒 * 60 * 24 * 3650 日間保存
+      maxAge: 24 * 60 * 60 * Const.SessionRetentionPeriod,
+      secure: true,
+    })
   }, [state])
 
   return (
