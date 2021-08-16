@@ -8,7 +8,7 @@ import Const from '../const'
 
 const captains = console
 
-const getInitState = () => ({
+const INIT_STATE = {
   signedIn: false,
   processing: false,
   session: {
@@ -16,17 +16,17 @@ const getInitState = () => ({
     sub: undefined,
     email_verified: false,
   },
-})
+}
 
 const initState = (): GlobalState => {
   const cookie = parseCookies(null)
   let state = cookie.state
     ? (_.attempt(JSON.parse.bind(null, cookie.state)) as GlobalState)
-    : getInitState()
+    : { ...INIT_STATE }
 
   captains.log(state)
   if (_.isError(state) || !state) {
-    state = getInitState()
+    state = { ...INIT_STATE }
   }
   return {
     ...state,
