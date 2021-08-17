@@ -1,8 +1,12 @@
 import { useState, useContext, ReactElement } from 'react'
 import Head from 'next/head'
+import { toast } from 'react-toastify'
+import { NextRouter, useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { AxiosPromise, AxiosResponse } from 'axios'
+import { useMutation } from 'react-query'
 import GlobalContext from '../context/global-context'
 import Logo from '../components/logo'
 import {
@@ -13,7 +17,13 @@ import {
   Typography,
 } from '../components/atoms'
 import { SimpleLayout, Confirm } from '../components/template'
+import { Progress } from '../components/progress'
 import { TextFieldType } from '../data'
+import {
+  AuthRequest,
+  AuthResponse,
+  AuthRepository,
+} from '../repository/auth-repository'
 
 const captains = console
 
@@ -38,6 +48,10 @@ const schema = yup.object().shape({
 })
 
 export default function Login(): JSX.Element {
+  const router: NextRouter = useRouter()
+  const mutation = useMutation(
+    (req: AuthRequest): AxiosPromise<AuthResponse> => AuthRepository.signIn(req)
+  )
   const context = useContext(GlobalContext)
 
   const {
@@ -46,15 +60,29 @@ export default function Login(): JSX.Element {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      email: 'test@test.com',
+      password: 'Password1?',
+    },
   })
 
-  const doSubmit = async (data: any): Promise<void> => {
+  const doSubmit = (data: FormValues): void => {
     captains.log(data)
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    context.updateState({
-      session: {
-        username: 'hoge',
-        sub: 'sub',
+    const authRequest: AuthRequest = {
+      id: data.email,
+      password: data.password,
+    }
+    mutation.mutate(authRequest, {
+      onSuccess: (res: AxiosResponse<AuthResponse>) => {
+        context.updateState({
+          session: {
+            username: data.email,
+            jwtToken: res.data.token,
+            sub: 'sub',
+          },
+        })
+        router.push('/')
+        toast.success('ログインしました')
       },
     })
   }
@@ -72,6 +100,7 @@ export default function Login(): JSX.Element {
 
   return (
     <>
+      <Progress processing={mutation.isLoading} />
       <Head>
         <meta
           name="viewport"

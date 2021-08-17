@@ -10,7 +10,10 @@ interface AuthRequest extends NextApiRequest {
   }
 }
 
-export default (req: AuthRequest, res: NextApiResponse): void => {
+export default async (
+  req: AuthRequest,
+  res: NextApiResponse
+): Promise<void> => {
   if (req.body.id && req.body.password) {
     const payload = {
       user: req.body.id,
@@ -22,7 +25,7 @@ export default (req: AuthRequest, res: NextApiResponse): void => {
       },
       SECRET_KEY
     )
-
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     res.status(200).json({ status: 'ok', token })
   } else {
     res.status(401).json({ message: 'Unauthorized' })

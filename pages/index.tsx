@@ -1,12 +1,13 @@
-import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
+import { ReactElement } from 'react'
+import { SimpleLayout } from '../components/template'
 import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
+import { Typography } from '../components/atoms'
 
-export default function Home({
+export default function Index({
   allPostsData,
 }: {
   allPostsData: {
@@ -16,12 +17,9 @@ export default function Home({
   }[]
 }): JSX.Element {
   return (
-    <Layout home>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
+    <>
       <section className={utilStyles.headingMd}>
-        <p>[Your Self Introduction]</p>
+        <Typography variant={'h3'}>Index Page</Typography>
         <p>
           (This is a sample website - you’ll be building a site like this in{' '}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
@@ -43,7 +41,7 @@ export default function Home({
           ))}
         </ul>
       </section>
-    </Layout>
+    </>
   )
 }
 
@@ -54,4 +52,8 @@ export const getStaticProps: GetStaticProps = async () => {
       allPostsData,
     },
   }
+}
+
+Index.getLayout = function getLayout(page: ReactElement) {
+  return <SimpleLayout title={'トップページ'}>{page}</SimpleLayout>
 }

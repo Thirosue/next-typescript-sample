@@ -31,6 +31,9 @@ export const Progress = ({
                 </g>
               </g>
             </svg>
+            <h2 className="mt-2 text-center text-white text-base">
+              Loading...
+            </h2>
           </div>
         </>
       )}

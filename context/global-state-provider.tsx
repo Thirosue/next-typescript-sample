@@ -11,6 +11,7 @@ const INIT_STATE = {
   session: {
     username: undefined,
     sub: undefined,
+    jwtToken: undefined,
     email_verified: false,
   },
 }
