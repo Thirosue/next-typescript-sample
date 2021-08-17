@@ -50,11 +50,8 @@ export default function Login(): JSX.Element {
 
   const doSubmit = async (data: any): Promise<void> => {
     captains.log(data)
-    context.startProcess()
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-    context.endProcess()
+    await new Promise((resolve) => setTimeout(resolve, 2000))
     context.updateState({
-      signedIn: true,
       session: {
         username: 'hoge',
         sub: 'sub',

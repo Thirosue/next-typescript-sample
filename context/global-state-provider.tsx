@@ -2,15 +2,12 @@ import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { parseCookies, setCookie } from 'nookies'
 import GlobalContext from './global-context'
-import Progress from '../components/progress'
 import { GlobalState } from '../data/global-state'
 import Const from '../const'
 
 const captains = console
 
 const INIT_STATE = {
-  signedIn: false,
-  processing: false,
   session: {
     username: undefined,
     sub: undefined,
@@ -30,7 +27,6 @@ const initState = (): GlobalState => {
   }
   return {
     ...state,
-    processing: false,
   }
 }
 
@@ -45,19 +41,12 @@ const GlobalStateProvider = ({
     setState({ ...state, ...value })
   }
 
-  const startProcess = (): void => {
-    setState({ ...state, processing: true })
-  }
-
-  const endProcess = (): void => {
-    setState({ ...state, processing: false })
-  }
+  const isSignin = () => !!state.session.sub
 
   const global = {
     state,
     updateState,
-    startProcess,
-    endProcess,
+    isSignin,
   }
 
   useEffect(() => {
@@ -77,12 +66,7 @@ const GlobalStateProvider = ({
   }, [state])
 
   return (
-    <GlobalContext.Provider value={global}>
-      {/*  processing start */}
-      <Progress processing={state.processing} />
-      {/*  processing end */}
-      {children}
-    </GlobalContext.Provider>
+    <GlobalContext.Provider value={global}>{children}</GlobalContext.Provider>
   )
 }
 
