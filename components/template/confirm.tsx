@@ -101,7 +101,6 @@ export const Layout = ({
                   {icon && DialogIcon()}
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     {title && <Typography variant={'h6'}>{title}</Typography>}
-                    <div className="mt-2">{children}</div>
                   </div>
                 </div>
               </div>
@@ -121,6 +120,9 @@ export const Layout = ({
                   ></path>
                 </svg>
               </Link>
+            </div>
+            <div className="mt-2">
+              <div>{children}</div>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

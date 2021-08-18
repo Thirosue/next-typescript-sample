@@ -6,6 +6,32 @@ import { SimpleLayout } from '../components/template'
 
 const captains = console
 
+export const AlertDilalog: React.FC = () => {
+  const confirm = useConfirm()
+
+  const handleClick = (_: any): void => {
+    confirm({
+      title: 'Alert Dialog Demo',
+      alert: true,
+      icon: 'alert',
+      description:
+        'Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.',
+    })
+      .then(() => {
+        captains.log('then')
+      })
+      .catch(() => {
+        captains.log('error')
+      })
+  }
+
+  return (
+    <div className="mt-2">
+      <Link onClick={handleClick}>open alert dialog?</Link>
+    </div>
+  )
+}
+
 export const HtlmDilalog: React.FC = () => {
   const confirm = useConfirm()
 
@@ -31,14 +57,13 @@ export const HtlmDilalog: React.FC = () => {
   )
 }
 
-export const Dilalog: React.FC = () => {
+export const DilalogWithNoAlert: React.FC = () => {
   const confirm = useConfirm()
 
   const handleClick = (_: any): void => {
     confirm({
-      title: 'Alert Dialog Demo',
+      title: 'No Icon Dialog Demo',
       alert: true,
-      icon: 'alert',
       description:
         'Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.',
     })
@@ -52,7 +77,7 @@ export const Dilalog: React.FC = () => {
 
   return (
     <div className="mt-2">
-      <Link onClick={handleClick}>open alert dialog?</Link>
+      <Link onClick={handleClick}>open dialog with no icon?</Link>
     </div>
   )
 }
@@ -171,10 +196,13 @@ export default function Demo(): JSX.Element {
         <h1>Dialog demo</h1>
       </div>
       <div className="ml-4 mb-4">
-        <Dilalog />
+        <AlertDilalog />
       </div>
       <div className="ml-4 mb-4">
         <HtlmDilalog />
+      </div>
+      <div className="ml-4 mb-4">
+        <DilalogWithNoAlert />
       </div>
       <div className="mt-12 mb-12 prose lg:prose">
         <h1>Toast demo</h1>

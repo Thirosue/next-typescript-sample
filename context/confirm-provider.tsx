@@ -62,7 +62,9 @@ export const ConfirmProvider = ({
             {options.html ? (
               options.description
             ) : (
-              <p className="text-sm text-gray-500">{options.description}</p>
+              <p className="text-sm text-gray-500 px-5 py-1">
+                {options.description}
+              </p>
             )}
           </Confirm>
         </>
