@@ -1,4 +1,5 @@
 import { useState, useContext, ReactElement } from 'react'
+import { Many } from 'lodash'
 import Head from 'next/head'
 import { toast } from 'react-toastify'
 import { NextRouter, useRouter } from 'next/router'
@@ -16,8 +17,10 @@ import {
   Link,
   Typography,
 } from '../components/atoms'
-import { SimpleLayout, Confirm } from '../components/template'
+import { SimpleLayout } from '../components/template'
 import { Progress } from '../components/progress'
+import PasswordDialog from '../components/page/password-dialog'
+import ConfirmCodeModal from '../components/page/confirm-code-dialog'
 import { TextFieldType } from '../data'
 import {
   AuthRequest,
@@ -87,16 +90,13 @@ export default function Login(): JSX.Element {
     })
   }
 
-  // For Modal
-  const [open, setOpen] = useState(false)
+  // For Password Modal
+  const [state, setState] =
+    useState<Many<'Init' | 'WaitingForCode' | 'Done'>>('Init')
 
-  const handleConfirm = (_: any): void => {
-    captains.log('Submit')
-  }
-
-  const handleClose = (_: any): void => {
-    setOpen(false)
-  }
+  // For Password Modal
+  const [passwordModal, setPasswordModalOpen] = useState(false)
+  const handlePasswordModalClose = (_: any): void => setPasswordModalOpen(false)
 
   return (
     <>
@@ -158,7 +158,9 @@ export default function Login(): JSX.Element {
               </div>
 
               <div>
-                <Link onClick={() => setOpen(true)}>Forgot your password?</Link>
+                <Link onClick={() => setPasswordModalOpen(true)}>
+                  Forgot your password?
+                </Link>
               </div>
             </div>
 
@@ -170,22 +172,19 @@ export default function Login(): JSX.Element {
           </form>
         </div>
       </div>
-      {open && (
-        <>
-          <Confirm
-            title={'Deactivate account'}
-            onSubmit={handleConfirm}
-            onClose={handleClose}
-            onCancel={handleClose}
-            icon={'alert'}
-            alert={true}
-          >
-            <p className="text-sm text-gray-500">
-              Are you sure you want to deactivate your account? All of your data
-              will be permanently removed. This action cannot be undone.
-            </p>
-          </Confirm>
-        </>
+      {passwordModal && (
+        <PasswordDialog
+          onSubmit={() => setState('WaitingForCode')}
+          onClose={handlePasswordModalClose}
+          onCancel={handlePasswordModalClose}
+        />
+      )}
+      {state === 'WaitingForCode' && (
+        <ConfirmCodeModal
+          onSubmit={() => setState('Done')}
+          onClose={() => setState('Init')}
+          onCancel={() => setState('Init')}
+        />
       )}
     </>
   )
