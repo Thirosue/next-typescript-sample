@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faExclamation,
   faExclamationTriangle,
-  faTimes,
 } from '@fortawesome/free-solid-svg-icons'
 import _, { Many } from 'lodash'
 import Typography from '../atoms/typography'
@@ -57,7 +56,6 @@ export const Layout = ({
   onCancel,
   icon,
   alert = false,
-  closable = false,
 }: {
   title: string
   children: React.ReactNode
@@ -68,7 +66,6 @@ export const Layout = ({
   onCancel: (event: any) => void
   icon?: Many<'info' | 'warn' | 'alert'>
   alert?: boolean
-  closable?: boolean
 }): JSX.Element => {
   const DialogIcon = () =>
     _.head(
@@ -108,13 +105,22 @@ export const Layout = ({
                   </div>
                 </div>
               </div>
-              {closable && (
-                <>
-                  <Link onClick={onClose}>
-                    <FontAwesomeIcon color={'gray'} icon={faTimes} />
-                  </Link>
-                </>
-              )}
+              <Link onClick={onClose}>
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  ></path>
+                </svg>
+              </Link>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
