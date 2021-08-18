@@ -60,6 +60,42 @@ Vary: Accept-Encoding
 }
 ```
 
+#### Change Password
+
+```
+% http POST localhost:3000/api/password/change password=after
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 15
+Content-Type: application/json; charset=utf-8
+Date: Wed, 18 Aug 2021 05:47:58 GMT
+ETag: "f-VaSQ4oDUiZblZNAEkkN+sX+q3Sg"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "status": "ok"
+}
+```
+
+#### Verify Code
+
+```
+% http POST localhost:3000/api/code/verify code=123456
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 15
+Content-Type: application/json; charset=utf-8
+Date: Wed, 18 Aug 2021 05:49:36 GMT
+ETag: "f-VaSQ4oDUiZblZNAEkkN+sX+q3Sg"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "status": "ok"
+}
+```
+
 ### Product
 
 #### Get
