@@ -85,7 +85,7 @@ export const LoginPage = ({
           },
         })
         router.push('/')
-        toast.success('ログインしました')
+        toast('ログインしました')
       },
     })
   }

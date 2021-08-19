@@ -25,6 +25,7 @@ export const SystemLayout = ({
         newestOnTop={false}
         closeOnClick
         rtl={false}
+        position={'bottom-right'}
         pauseOnFocusLoss
         draggable
         pauseOnHover
