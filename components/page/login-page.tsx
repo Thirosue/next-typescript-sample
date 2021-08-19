@@ -5,8 +5,9 @@ import { NextRouter, useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { AxiosPromise, AxiosResponse } from 'axios'
+import { AxiosPromise, AxiosResponse, AxiosError } from 'axios'
 import { useMutation } from 'react-query'
+import useConfirm from '../../hooks/useConfirm'
 import GlobalContext from '../../context/global-context'
 import Logo from '../../components/logo'
 import {
@@ -56,6 +57,7 @@ export const LoginPage = ({
     (req: AuthRequest): AxiosPromise<AuthResponse> => AuthRepository.signIn(req)
   )
   const context = useContext(GlobalContext)
+  const confirm = useConfirm()
 
   const {
     register,
@@ -86,6 +88,24 @@ export const LoginPage = ({
         })
         await router.push('/')
         setTimeout(() => toast('ログインしました'), 100) // display toast after screen transition
+      },
+      onError: async (error: AxiosError) => {
+        if (error.response.status === 401) {
+          confirm({
+            title: '認証エラー',
+            alert: true,
+            icon: 'warn',
+            description: 'Emailもしくはパスワードが誤っています',
+          })
+        } else {
+          confirm({
+            title: 'システムエラー',
+            alert: true,
+            icon: 'alert',
+            description:
+              'エラーが発生しました。しばらくしてからもう一度お試しください。',
+          })
+        }
       },
     })
   }

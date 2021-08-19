@@ -14,7 +14,11 @@ export default async (
   req: AuthRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  if (req.body.id && req.body.password) {
+  if (
+    req.body.id &&
+    req.body.password &&
+    0 < req.body.id.lastIndexOf('test.com')
+  ) {
     const payload = {
       user: req.body.id,
     }
