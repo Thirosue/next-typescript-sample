@@ -6,6 +6,32 @@ import { SimpleLayout } from '../components/template'
 
 const captains = console
 
+export const InfoDilalog: React.FC = () => {
+  const confirm = useConfirm()
+
+  const handleClick = (_: any): void => {
+    confirm({
+      title: 'Info Dialog Demo',
+      alert: true,
+      icon: 'info',
+      description:
+        'Are you sure you want to deactivate your account? All of your data will be permanently removed. This action cannot be undone.',
+    })
+      .then(() => {
+        captains.log('then')
+      })
+      .catch(() => {
+        captains.log('error')
+      })
+  }
+
+  return (
+    <div className="mt-2">
+      <Link onClick={handleClick}>open info dialog?</Link>
+    </div>
+  )
+}
+
 export const AlertDilalog: React.FC = () => {
   const confirm = useConfirm()
 
@@ -194,6 +220,9 @@ export default function Demo(): JSX.Element {
       </div>
       <div className="mt-12 mb-12 prose lg:prose">
         <h1>Dialog demo</h1>
+      </div>
+      <div className="ml-4 mb-4">
+        <InfoDilalog />
       </div>
       <div className="ml-4 mb-4">
         <AlertDilalog />
