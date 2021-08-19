@@ -41,6 +41,24 @@ Vary: Accept-Encoding
 }
 ```
 
+#### Sign Out
+
+```
+% http POST localhost:3000/api/auth/signout
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Length: 15
+Content-Type: application/json; charset=utf-8
+Date: Thu, 19 Aug 2021 08:58:59 GMT
+ETag: "f-VaSQ4oDUiZblZNAEkkN+sX+q3Sg"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "status": "ok"
+}
+```
+
 #### Session Check
 
 ```
