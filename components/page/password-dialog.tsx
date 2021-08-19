@@ -34,7 +34,8 @@ const schema = yup.object().shape({
     .matches(
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       'アルファベット（大文字小文字混在）と数字と特殊記号を組み合わせて8文字以上で入力してください'
-    ),
+    )
+    .oneOf([yup.ref('password'), null], '確認用パスワードが一致していません'),
 })
 
 export const PasswordDialog = ({
@@ -54,7 +55,7 @@ export const PasswordDialog = ({
     resolver: yupResolver(schema),
     defaultValues: {
       password: 'Password1?',
-      confirmPassword: 'Password2?',
+      confirmPassword: 'Password1?',
     },
   })
   const mutation = useMutation(
