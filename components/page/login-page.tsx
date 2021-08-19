@@ -76,7 +76,7 @@ export const LoginPage = ({
       password: data.password,
     }
     mutation.mutate(authRequest, {
-      onSuccess: (res: AxiosResponse<AuthResponse>) => {
+      onSuccess: async (res: AxiosResponse<AuthResponse>) => {
         context.updateState({
           session: {
             username: data.email,
@@ -84,8 +84,8 @@ export const LoginPage = ({
             sub: 'sub',
           },
         })
-        router.push('/')
-        toast('ログインしました')
+        await router.push('/')
+        setTimeout(() => toast('ログインしました'), 200) // display toast after screen transition
       },
     })
   }
