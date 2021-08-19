@@ -1,6 +1,31 @@
+import { useContext } from 'react'
 import { toast } from 'react-toastify'
+import { NextRouter, useRouter } from 'next/router'
+import { destroyCookie } from 'nookies'
+import { AxiosPromise } from 'axios'
+import { useMutation } from 'react-query'
+import GlobalContext from '../../context/global-context'
+import { BaseResponse, AuthRepository } from '../../repository/auth-repository'
 
 export default function Header(): JSX.Element {
+  const router: NextRouter = useRouter()
+  const context = useContext(GlobalContext)
+
+  const mutation = useMutation(
+    (): AxiosPromise<BaseResponse> => AuthRepository.signOut()
+  )
+
+  const signOut = (): void => {
+    mutation.mutate(null, {
+      onSuccess: async () => {
+        context.clearState()
+        await router.push('/login')
+        destroyCookie(null, 'state')
+        setTimeout(() => toast.dark('ログアウトしました'), 100) // display toast after screen transition
+      },
+    })
+  }
+
   return (
     <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
       <div className="flex items-center">
@@ -44,38 +69,26 @@ export default function Header(): JSX.Element {
         </div>
       </div>
       <div className="flex items-center">
-        <div x-data="{ dropdownOpen: false }" className="relative">
-          <button className="relative block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none">
-            <img
-              className="h-full w-full object-cover"
-              src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
-              alt="Your avatar"
-            />
-          </button>
-          <div
-            x-show="dropdownOpen"
-            className="fixed inset-0 h-full w-full z-10"
-          ></div>
-          <div
-            x-show="dropdownOpen"
-            className="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10"
+        <div className="relative">
+          <button
+            onClick={signOut}
+            className=" block h-8 w-8 rounded-full overflow-hidden shadow focus:outline-none"
           >
-            <a
-              onClick={() => toast('hoge')}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="ml-1 h-7 w-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              Profile
-            </a>
-            <a className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">
-              Products
-            </a>
-            <a
-              href="/login"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-            >
-              Logout
-            </a>
-          </div>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </header>

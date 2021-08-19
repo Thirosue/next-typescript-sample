@@ -52,6 +52,10 @@ const GlobalStateProvider = ({
       AuthRepository.checkSession(req)
   )
 
+  const clearState = (): void => {
+    setState({ ...INIT_STATE })
+  }
+
   const updateState = (value: GlobalState): void => {
     setState({ ...state, ...value })
   }
@@ -61,6 +65,7 @@ const GlobalStateProvider = ({
   const global = {
     state,
     updateState,
+    clearState,
     isSignin,
   }
 

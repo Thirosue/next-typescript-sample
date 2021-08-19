@@ -31,6 +31,10 @@ class AuthRepository {
     return axios.put(`/api/auth`, req)
   }
 
+  public static signOut(): AxiosPromise<BaseResponse> {
+    return axios.put(`/api/auth/signout`, {})
+  }
+
   public static checkSession(
     req: CheckSessionRequest
   ): AxiosPromise<AuthResponse> {

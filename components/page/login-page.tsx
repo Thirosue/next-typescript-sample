@@ -85,7 +85,7 @@ export const LoginPage = ({
           },
         })
         await router.push('/')
-        setTimeout(() => toast('ログインしました'), 200) // display toast after screen transition
+        setTimeout(() => toast('ログインしました'), 100) // display toast after screen transition
       },
     })
   }
