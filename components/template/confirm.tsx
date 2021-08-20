@@ -84,6 +84,7 @@ export const Layout = ({
   onCancel,
   icon,
   alert = false,
+  processing,
 }: {
   title: string
   children: React.ReactNode
@@ -94,6 +95,7 @@ export const Layout = ({
   onCancel: (event: any) => void
   icon?: Many<'info' | 'warn' | 'alert'>
   alert?: boolean
+  processing?: boolean
 }): JSX.Element => {
   const DialogIcon = () =>
     _.head(
@@ -159,6 +161,7 @@ export const Layout = ({
               color={'primary'}
               onClick={onSubmit}
               fullWidth={true}
+              disabled={!!processing}
             >
               {confirmationText}
             </Button>

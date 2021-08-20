@@ -175,7 +175,11 @@ export const LoginPage = ({
             </div>
 
             <div className="mt-6">
-              <Button color={'primary'} fullWidth={true}>
+              <Button
+                color={'primary'}
+                fullWidth={true}
+                disabled={mutation.isLoading}
+              >
                 Sign in
               </Button>
             </div>

@@ -84,6 +84,7 @@ export const PasswordDialog = ({
         onSubmit={handleSubmit(doSubmit)}
         onClose={onClose}
         onCancel={onCancel}
+        processing={mutation.isLoading}
       >
         <form className="px-6 mt-4 mb-4 w-full">
           <label className="block">
