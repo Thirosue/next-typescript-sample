@@ -16,8 +16,13 @@ interface ProductGetRequest extends NextApiRequest {
 
 const captains = console
 
-export default (req: ProductGetRequest, res: NextApiResponse): void => {
+export default async (
+  req: ProductGetRequest,
+  res: NextApiResponse
+): Promise<void> => {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+
     const { name, description, page, rows, order, orderBy } = req.query
     const _rows = parseInt(rows)
     const _page = parseInt(page)
