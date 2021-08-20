@@ -1,6 +1,7 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { AxiosPromise } from 'axios'
+import querystring from 'querystring'
 import { DashboardLayout } from '../components/template'
 import {
   Product,
@@ -8,13 +9,21 @@ import {
   ProductRepository,
 } from '../repository/product-repository'
 import { Progress } from '../components/progress'
+import SystemHelper from '../helpers/system'
 
 export default function Index(): JSX.Element {
+  const [keyword, setKeyword] = useState('')
+
   const products = useQuery(
-    'allProducts',
+    ['products', keyword],
     (): AxiosPromise<ProductResponse> =>
-      ProductRepository.findAll({ page: 1, rows: 5 })
+      ProductRepository.findAll({ name: keyword, page: 1, rows: 5 })
   )
+
+  useEffect(() => {
+    const { keyword } = querystring.parse(location.search.substr(1))
+    setKeyword(keyword as string)
+  }, [SystemHelper.isBrowser && location.href])
 
   return (
     <>
