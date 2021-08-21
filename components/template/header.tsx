@@ -32,7 +32,6 @@ export default function Header(): JSX.Element {
   })
 
   const doSubmit = async (data: FormValues): Promise<void> => {
-    if (!data.keyword) return
     await router.push({
       query: { keyword: data.keyword },
     })
