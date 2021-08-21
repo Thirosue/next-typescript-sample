@@ -75,7 +75,7 @@ export const ConfirmCodeModal = ({
             <input
               id="code"
               type={TextFieldType.Number}
-              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
                 errors.code ? 'border-red-400' : ''
               }`}
               {...register('code', {

@@ -45,7 +45,7 @@ const GlobalStateProvider = ({
   children: React.ReactNode
 }): JSX.Element => {
   const router: NextRouter = useRouter()
-  const [state, setState] = useState(initState)
+  const [state, setState] = useState<GlobalState>(initState)
 
   const mutation = useMutation(
     (req: CheckSessionRequest): AxiosPromise<AuthResponse> =>

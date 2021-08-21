@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { toast } from 'react-toastify'
 import useConfirm from '../hooks/useConfirm'
 import { Typography, Link } from '../components/atoms'
-import { SimpleLayout } from '../components/template'
+import { DashboardLayout } from '../components/template'
 
 const captains = console
 
@@ -130,7 +130,7 @@ export const ErrorToast: React.FC = () => {
 
 export default function Demo(): JSX.Element {
   return (
-    <>
+    <div className="container mx-auto px-6 py-8">
       <div className="mb-12 prose lg:prose">
         <h1>@tailwindcss/form demo</h1>
       </div>
@@ -242,10 +242,10 @@ export default function Demo(): JSX.Element {
       <div className="ml-4 mb-4">
         <ErrorToast />
       </div>
-    </>
+    </div>
   )
 }
 
 Demo.getLayout = function getLayout(page: ReactElement) {
-  return <SimpleLayout title={'デモ'}>{page}</SimpleLayout>
+  return <DashboardLayout title={'デモ'}>{page}</DashboardLayout>
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
@@ -16,6 +17,8 @@ export const DashboardLayout = ({
   children: React.ReactNode
   title: string
 }): JSX.Element => {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -23,9 +26,12 @@ export const DashboardLayout = ({
           <GlobalStateProvider>
             <Seo title={title} />
             <div className="flex h-screen bg-gray-200 font-roboto">
-              <SideBar />
+              <SideBar
+                sidebarOpen={sidebarOpen}
+                toggle={() => setSidebarOpen(false)}
+              />
               <div className="flex-1 flex flex-col overflow-hidden">
-                <Header />
+                <Header toggle={() => setSidebarOpen(true)} />
                 <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
                   {children}
                 </main>

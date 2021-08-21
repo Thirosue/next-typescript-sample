@@ -17,7 +17,7 @@ type FormValues = {
 const getKeyword = (): string =>
   querystring.parse(location.search.substr(1)).keyword as string
 
-export default function Header(): JSX.Element {
+export const Header = ({ toggle }: { toggle: () => void }): JSX.Element => {
   const router: NextRouter = useRouter()
   const context = useContext(GlobalContext)
 
@@ -51,7 +51,10 @@ export default function Header(): JSX.Element {
   return (
     <header className="flex justify-between items-center py-4 px-6 bg-white border-b-4 border-indigo-600">
       <div className="flex items-center">
-        <button className="text-gray-500 focus:outline-none lg:hidden">
+        <button
+          onClick={toggle}
+          className="text-gray-500 focus:outline-none lg:hidden"
+        >
           <svg
             className="h-6 w-6"
             viewBox="0 0 24 24"
@@ -122,3 +125,5 @@ export default function Header(): JSX.Element {
     </header>
   )
 }
+
+export default Header

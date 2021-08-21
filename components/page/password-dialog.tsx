@@ -92,7 +92,7 @@ export const PasswordDialog = ({
             <input
               id="password"
               type={TextFieldType.Password}
-              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
                 errors.password ? 'border-red-400' : ''
               }`}
               {...register('password')}
@@ -105,7 +105,7 @@ export const PasswordDialog = ({
             <input
               id="confirmPassword"
               type={TextFieldType.Password}
-              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
                 errors.confirmPassword ? 'border-red-400' : ''
               }`}
               {...register('confirmPassword')}

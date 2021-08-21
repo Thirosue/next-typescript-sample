@@ -134,7 +134,7 @@ export const LoginPage = ({
               <input
                 id="email"
                 type={TextFieldType.Email}
-                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
                   errors.email ? 'border-red-400' : ''
                 }`}
                 {...register('email')}
@@ -147,7 +147,7 @@ export const LoginPage = ({
               <input
                 id="password"
                 type={TextFieldType.Password}
-                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600' ${
+                className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
                   errors.password ? 'border-red-400' : ''
                 }`}
                 {...register('password')}

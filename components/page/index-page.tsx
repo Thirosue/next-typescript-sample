@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { NextRouter, useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { AxiosPromise } from 'axios'
 import querystring from 'querystring'
@@ -11,20 +12,40 @@ import { Progress } from '../../components/progress'
 import DashboardCard from '../molecules/dashboard-card'
 import ProductRow from '../molecules/product-row'
 import SystemHelper from '../../helpers/system'
+import { PageItem } from '../../data/page-item'
+import Const from '../../const'
 
 export const IndexPage = (): JSX.Element => {
+  const router: NextRouter = useRouter()
   const [keyword, setKeyword] = useState('')
+  const [pageItem, setPageItem] = useState<PageItem>({
+    ...Const.defaultPageValue,
+  })
 
   const products = useQuery(
-    ['products', keyword],
+    ['products', [keyword, pageItem]],
     (): AxiosPromise<ProductResponse> =>
-      ProductRepository.findAll({ name: keyword, page: 0, rows: 5 })
+      ProductRepository.findAll({
+        name: keyword,
+        page: pageItem.page,
+        rows: Const.defaultPageValue.perPage,
+      })
   )
 
   useEffect(() => {
-    const { keyword } = querystring.parse(location.search.substr(1))
+    const { keyword, page } = querystring.parse(location.search.substr(1))
     setKeyword(keyword as string)
+    setPageItem({
+      ...pageItem,
+      page: page ? Number(page as string) : 0,
+    })
   }, [SystemHelper.isBrowser && location.href])
+
+  const pushState = async (page: number): Promise<void> => {
+    await router.push({
+      query: { keyword, page },
+    })
+  }
 
   return (
     <>
@@ -137,6 +158,108 @@ export const IndexPage = (): JSX.Element => {
                     )}
                 </tbody>
               </table>
+              <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                <div className="flex-1 flex justify-between sm:hidden">
+                  <a
+                    href="#"
+                    className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                  >
+                    Previous
+                  </a>
+                  <a
+                    href="#"
+                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                  >
+                    Next
+                  </a>
+                </div>
+                <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-sm text-gray-700">
+                      <span>Showing</span>
+                      <span className="font-medium mx-1">
+                        {pageItem.page + 1}
+                      </span>
+                      <span>to</span>
+                      <span className="font-medium mx-1">
+                        {Const.defaultPageValue.perPage}
+                      </span>
+                      <span>of</span>
+                      <span className="font-medium mx-1">
+                        {products.isFetched && products.data.data.count}
+                      </span>
+                      <span>results</span>
+                    </p>
+                  </div>
+                  <div>
+                    <nav
+                      className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+                      aria-label="Pagination"
+                    >
+                      <a className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <span className="sr-only">Previous</span>
+                        <svg
+                          className="h-5 w-5"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </a>
+                      <a
+                        onClick={() => pushState(0)}
+                        aria-current="page"
+                        className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                      >
+                        1
+                      </a>
+                      <a
+                        onClick={() => pushState(1)}
+                        className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                      >
+                        2
+                      </a>
+                      <a className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium">
+                        3
+                      </a>
+                      <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                        ...
+                      </span>
+                      <a className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium">
+                        8
+                      </a>
+                      <a className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                        9
+                      </a>
+                      <a className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                        10
+                      </a>
+                      <a className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                        <span className="sr-only">Next</span>
+                        <svg
+                          className="h-5 w-5"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </a>
+                    </nav>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

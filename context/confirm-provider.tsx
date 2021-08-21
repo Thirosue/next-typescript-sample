@@ -24,7 +24,7 @@ export const ConfirmProvider = ({
 }: {
   children: React.ReactNode
 }): JSX.Element => {
-  const [options, setOptions] = useState({ ...DEFAULT_OPTIONS })
+  const [options, setOptions] = useState<DialogOptions>({ ...DEFAULT_OPTIONS })
   const [resolveReject, setResolveReject] = useState([])
   const [resolve, reject] = resolveReject
 
