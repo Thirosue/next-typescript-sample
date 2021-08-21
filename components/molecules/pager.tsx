@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react'
 import { PageItem } from '../../data/page-item'
 import Const from '../../const'
 
@@ -13,8 +14,8 @@ const PageLink = ({
   return (
     <a
       href="#"
-      onClick={() => active && handleClick(page - 1)}
-      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
+      onClick={() => active && handleClick(page)}
+      className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium page-link-${page} ${
         active
           ? 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
           : 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600 cursor-not-allowed'
@@ -47,6 +48,8 @@ const NaviLink = ({
   )
 }
 
+const PAGER_BUFFER = 3
+
 export const Pager = ({
   pageItem,
   search,
@@ -54,8 +57,22 @@ export const Pager = ({
   pageItem: PageItem
   search: (page: number) => Promise<void>
 }): JSX.Element => {
-  const isFirstActive = pageItem.page !== 0
-  const isLastActive = pageItem.page !== pageItem.totalPage - 1
+  const isFirstActive = pageItem.page !== 1
+  const isLastActive = pageItem.page !== pageItem.totalPage
+
+  const [pages, setPages] = useState<number[]>([])
+  useEffect(() => {
+    setPages([])
+    const { page, totalPage } = pageItem
+    const from = 1 <= page - PAGER_BUFFER ? page - PAGER_BUFFER : 1
+    const to =
+      page + PAGER_BUFFER <= totalPage ? page + PAGER_BUFFER : totalPage
+    for (let i = from; i <= to; i++) {
+      setPages((prev) =>
+        [...prev, i].filter((page) => page !== 1 && page !== pageItem.totalPage)
+      ) //1ページ目と最終ページは除く
+    }
+  }, [pageItem.page, pageItem.totalPage])
 
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
@@ -78,7 +95,7 @@ export const Pager = ({
           <p className="text-sm text-gray-700">
             <span>Showing</span>
             <span className="font-medium mx-1">
-              {Const.defaultPageValue.perPage * pageItem.page + 1}
+              {Const.defaultPageValue.perPage * (pageItem.page - 1) + 1}
             </span>
             <span>to</span>
             <span className="font-medium mx-1">
@@ -113,50 +130,34 @@ export const Pager = ({
               </svg>
             </NaviLink>
             {1 <= pageItem.totalPage && (
-              <PageLink
-                page={1}
-                handleClick={search}
-                active={pageItem.page !== 0}
-              />
+              <PageLink page={1} handleClick={search} active={isFirstActive} />
             )}
+            {pages.length &&
+              pages.map((page, index: number) => (
+                <React.Fragment key={index}>
+                  {index === 0 && 2 < page && (
+                    <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                      ...
+                    </span>
+                  )}
+                  <PageLink
+                    page={page}
+                    handleClick={search}
+                    active={pageItem.page !== page}
+                  />
+                  {index === pages.length - 1 &&
+                    page < pageItem.totalPage - 1 && (
+                      <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                        ...
+                      </span>
+                    )}
+                </React.Fragment>
+              ))}
             {2 <= pageItem.totalPage && (
-              <PageLink
-                page={2}
-                handleClick={search}
-                active={pageItem.page !== 1}
-              />
-            )}
-            {3 <= pageItem.totalPage && (
-              <PageLink
-                page={3}
-                handleClick={search}
-                active={pageItem.page !== 2}
-              />
-            )}
-            {7 <= pageItem.totalPage && (
-              <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                ...
-              </span>
-            )}
-            {4 <= pageItem.totalPage && (
-              <PageLink
-                page={pageItem.totalPage - 2}
-                handleClick={search}
-                active={pageItem.page !== pageItem.totalPage - 3}
-              />
-            )}
-            {5 <= pageItem.totalPage && (
-              <PageLink
-                page={pageItem.totalPage - 1}
-                handleClick={search}
-                active={pageItem.page !== pageItem.totalPage - 2}
-              />
-            )}
-            {6 <= pageItem.totalPage && (
               <PageLink
                 page={pageItem.totalPage}
                 handleClick={search}
-                active={pageItem.page !== pageItem.totalPage - 1}
+                active={isLastActive}
               />
             )}
             <NaviLink

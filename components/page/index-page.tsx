@@ -28,7 +28,7 @@ export const IndexPage = (): JSX.Element => {
     (): AxiosPromise<ProductResponse> =>
       ProductRepository.findAll({
         name: keyword,
-        page: pageItem.page,
+        page: pageItem.page - 1,
         rows: Const.defaultPageValue.perPage,
       })
   )
@@ -38,7 +38,7 @@ export const IndexPage = (): JSX.Element => {
     setKeyword(keyword as string)
     setPageItem({
       ...pageItem,
-      page: page ? Number(page as string) : 0,
+      page: page ? Number(page as string) : 1,
     })
   }, [SystemHelper.isBrowser && location.href])
 
@@ -169,7 +169,9 @@ export const IndexPage = (): JSX.Element => {
                     )}
                 </tbody>
               </table>
-              <Pager search={pushState} pageItem={pageItem} />
+              {products.isFetched && (
+                <Pager search={pushState} pageItem={pageItem} />
+              )}
             </div>
           </div>
         </div>
