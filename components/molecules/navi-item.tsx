@@ -22,6 +22,7 @@ export const NaviItem = ({
 
   return (
     <a
+      href="#"
       onClick={handleClick}
       className={`flex items-center mt-4 py-2 px-6 ${
         active
