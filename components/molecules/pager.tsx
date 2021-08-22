@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { PageItem } from '../../data/page-item'
 import Const from '../../const'
 
+const OmitLink = (): JSX.Element => (
+  <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+    ...
+  </span>
+)
+
 const PageLink = ({
   page,
   active,
@@ -135,22 +141,14 @@ export const Pager = ({
             {pages.length &&
               pages.map((page, index: number) => (
                 <React.Fragment key={index}>
-                  {index === 0 && 2 < page && (
-                    <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                      ...
-                    </span>
-                  )}
+                  {index === 0 && 2 < page && <OmitLink />}
                   <PageLink
                     page={page}
                     handleClick={search}
                     active={pageItem.page !== page}
                   />
                   {index === pages.length - 1 &&
-                    page < pageItem.totalPage - 1 && (
-                      <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                        ...
-                      </span>
-                    )}
+                    page < pageItem.totalPage - 1 && <OmitLink />}
                 </React.Fragment>
               ))}
             {2 <= pageItem.totalPage && (
