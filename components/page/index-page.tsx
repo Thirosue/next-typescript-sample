@@ -13,8 +13,17 @@ import DashboardCard from '../molecules/dashboard-card'
 import ProductRow from '../molecules/product-row'
 import SystemHelper from '../../helpers/system'
 import { PageItem } from '../../data/page-item'
+import { TableHeaderItem } from '../../data/table-header-item'
 import Pager from '../molecules/pager'
 import Const from '../../const'
+
+const headerItems: TableHeaderItem[] = [
+  { label: 'Name' },
+  { label: 'Description' },
+  { label: 'Quantity' },
+  { label: 'Status' },
+  { label: '' },
+]
 
 export const IndexPage = (): JSX.Element => {
   const router: NextRouter = useRouter()
@@ -144,19 +153,14 @@ export const IndexPage = (): JSX.Element => {
               <table className="min-w-full">
                 <thead>
                   <tr>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Description
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Quantity
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                    {headerItems.map((items, index) => (
+                      <th
+                        key={index}
+                        className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        {items.label}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
 
