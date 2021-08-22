@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import NaviItem from '../molecules/navi-item'
-import SystemHelper from '../../helpers/system'
 
 interface Item {
   label: string
@@ -104,15 +104,15 @@ export const Slidebar = ({
   sidebarOpen: boolean
   toggle: () => void
 }): JSX.Element => {
+  const router = useRouter()
   const [active, setActive] = useState<boolean[]>(
     Array(NaviItems.length).fill(false)
   )
 
   useEffect(() => {
-    const { pathname } = location
-    const arr = NaviItems.map((item: Item) => item.link === pathname)
+    const arr = NaviItems.map((item: Item) => item.link === router.pathname)
     setActive(arr)
-  }, [SystemHelper.isBrowser && location.pathname])
+  }, [router.pathname])
 
   return (
     <>

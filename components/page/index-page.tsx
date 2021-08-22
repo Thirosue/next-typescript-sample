@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
+import { ParsedUrlQuery } from 'querystring'
 import { useQuery } from 'react-query'
 import { AxiosPromise } from 'axios'
-import querystring from 'querystring'
 import {
   Product,
   ProductResponse,
@@ -11,11 +11,15 @@ import {
 import { Progress } from '../../components/progress'
 import DashboardCard from '../molecules/dashboard-card'
 import ProductRow from '../molecules/product-row'
-import SystemHelper from '../../helpers/system'
 import { PageItem } from '../../data/page-item'
 import { TableHeaderItem } from '../../data/table-header-item'
 import Pager from '../molecules/pager'
 import Const from '../../const'
+
+interface IndexQuery extends ParsedUrlQuery {
+  keyword: string
+  page: string
+}
 
 const headerItems: TableHeaderItem[] = [
   { label: 'Name' },
@@ -26,7 +30,7 @@ const headerItems: TableHeaderItem[] = [
 ]
 
 export const IndexPage = (): JSX.Element => {
-  const router: NextRouter = useRouter()
+  const router = useRouter()
   const [keyword, setKeyword] = useState('')
   const [pageItem, setPageItem] = useState<PageItem>({
     ...Const.defaultPageValue,
@@ -43,13 +47,13 @@ export const IndexPage = (): JSX.Element => {
   )
 
   useEffect(() => {
-    const { keyword, page } = querystring.parse(location.search.substr(1))
-    setKeyword(keyword as string)
+    const { keyword, page } = router.query as IndexQuery
+    setKeyword(keyword)
     setPageItem({
       ...pageItem,
-      page: page ? Number(page as string) : 1,
+      page: page ? Number(page) : 1,
     })
-  }, [SystemHelper.isBrowser && location.href])
+  }, [router.query])
 
   useEffect(() => {
     if (products.isFetched) {

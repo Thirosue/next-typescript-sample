@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import _ from 'lodash'
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { AxiosPromise, AxiosResponse } from 'axios'
 import { parseCookies, setCookie } from 'nookies'
@@ -44,7 +44,7 @@ const GlobalStateProvider = ({
 }: {
   children: React.ReactNode
 }): JSX.Element => {
-  const router: NextRouter = useRouter()
+  const router = useRouter()
   const [state, setState] = useState<GlobalState>(initState)
 
   const mutation = useMutation(

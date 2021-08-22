@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import Head from 'next/head'
 import { toast } from 'react-toastify'
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -52,7 +52,7 @@ export const LoginPage = ({
 }: {
   passwordModalOpen: () => void
 }): JSX.Element => {
-  const router: NextRouter = useRouter()
+  const router = useRouter()
   const mutation = useMutation(
     (req: AuthRequest): AxiosPromise<AuthResponse> => AuthRepository.signIn(req)
   )

@@ -1,4 +1,4 @@
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 export const NaviItem = ({
   children,
@@ -13,7 +13,7 @@ export const NaviItem = ({
   active?: boolean
   toggle: () => void
 }): JSX.Element => {
-  const router: NextRouter = useRouter()
+  const router = useRouter()
 
   const handleClick = async (): Promise<void> => {
     await router.push(link)

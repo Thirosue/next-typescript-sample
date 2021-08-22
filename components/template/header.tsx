@@ -1,24 +1,19 @@
 import { useContext } from 'react'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
-import { NextRouter, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { destroyCookie } from 'nookies'
 import { AxiosPromise } from 'axios'
 import { useMutation } from 'react-query'
-import querystring from 'querystring'
 import GlobalContext from '../../context/global-context'
 import { BaseResponse, AuthRepository } from '../../repository/auth-repository'
-import SystemHelper from '../../helpers/system'
 
 type FormValues = {
   keyword: string
 }
 
-const getKeyword = (): string =>
-  querystring.parse(location.search.substr(1)).keyword as string
-
 export const Header = ({ toggle }: { toggle: () => void }): JSX.Element => {
-  const router: NextRouter = useRouter()
+  const router = useRouter()
   const context = useContext(GlobalContext)
 
   const mutation = useMutation(
@@ -27,7 +22,7 @@ export const Header = ({ toggle }: { toggle: () => void }): JSX.Element => {
 
   const { register, handleSubmit } = useForm<FormValues>({
     defaultValues: {
-      keyword: SystemHelper.isBrowser && getKeyword(),
+      keyword: router.query.keyword as string,
     },
   })
 
