@@ -13,6 +13,7 @@ import DashboardCard from '../molecules/dashboard-card'
 import ProductRow from '../molecules/product-row'
 import { PageItem } from '../../data/page-item'
 import { TableHeaderItem } from '../../data/table-header-item'
+import { SortItem } from '../../data/sort-item'
 import Pager from '../molecules/pager'
 import Const from '../../const'
 
@@ -22,12 +23,46 @@ interface IndexQuery extends ParsedUrlQuery {
 }
 
 const headerItems: TableHeaderItem[] = [
-  { label: 'Name' },
-  { label: 'Description' },
+  { key: 'name', label: 'Name', sortable: true },
+  { key: 'description', label: 'Description', sortable: true },
   { label: 'Quantity' },
   { label: 'Status' },
   { label: '' },
 ]
+
+const Upicon = (): JSX.Element => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="ml-2 h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 15l7-7 7 7"
+    />
+  </svg>
+)
+
+const Downicon = (): JSX.Element => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="ml-2 h-3 w-3"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
+)
 
 export const IndexPage = (): JSX.Element => {
   const router = useRouter()
@@ -35,13 +70,18 @@ export const IndexPage = (): JSX.Element => {
   const [pageItem, setPageItem] = useState<PageItem>({
     ...Const.defaultPageValue,
   })
+  const [sortItem, setSortItem] = useState<SortItem>({
+    ...Const.sortDefaultValue,
+  })
 
   const products = useQuery(
-    ['products', [keyword, pageItem]],
+    ['products', [keyword, pageItem, sortItem]],
     (): AxiosPromise<ProductResponse> =>
       ProductRepository.findAll({
         name: keyword,
         page: pageItem.page - 1,
+        order: sortItem.order,
+        orderBy: sortItem.key,
         rows: Const.defaultPageValue.perPage,
       })
   )
@@ -65,9 +105,22 @@ export const IndexPage = (): JSX.Element => {
     }
   }, [products.isFetched])
 
-  const pushState = async (page: number): Promise<void> => {
+  const pushState = async (page: number, sort?: SortItem): Promise<void> => {
     await router.push({
-      query: { keyword, page },
+      query: {
+        keyword,
+        page,
+        orderBy: sort?.key ?? sortItem.key,
+        order: sort?.order ?? sortItem.order,
+      },
+    })
+  }
+
+  const sort = async (item: SortItem): Promise<void> => {
+    setSortItem(item)
+    await pushState(1, {
+      key: item.key,
+      order: sortItem.order === 'asc' ? 'desc' : 'asc',
     })
   }
 
@@ -157,12 +210,36 @@ export const IndexPage = (): JSX.Element => {
               <table className="min-w-full">
                 <thead>
                   <tr>
-                    {headerItems.map((items, index) => (
+                    {headerItems.map((item, index) => (
                       <th
                         key={index}
                         className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
                       >
-                        {items.label}
+                        {item.sortable ? (
+                          <a
+                            href="#"
+                            onClick={() =>
+                              sort({
+                                key: item.key,
+                                order:
+                                  sortItem.order === 'asc' ? 'desc' : 'asc',
+                              })
+                            }
+                            className="flex justify-start"
+                          >
+                            <div>{item.label}</div>
+                            <div>
+                              {sortItem.key === item.key &&
+                              sortItem.order === 'asc' ? (
+                                <Upicon />
+                              ) : (
+                                <Downicon />
+                              )}
+                            </div>
+                          </a>
+                        ) : (
+                          <>{item.label}</>
+                        )}
                       </th>
                     ))}
                   </tr>

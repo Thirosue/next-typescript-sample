@@ -1,3 +1,4 @@
+import { Many } from 'lodash'
 import axios, { AxiosPromise } from 'axios'
 
 export interface ProductListRequest {
@@ -5,7 +6,7 @@ export interface ProductListRequest {
   description?: string
   page: number
   rows: number
-  order?: string
+  order?: Many<'' | 'asc' | 'desc'>
   orderBy?: string
 }
 
