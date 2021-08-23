@@ -14,6 +14,7 @@ import ProductRow from '../molecules/product-row'
 import { PageItem } from '../../data/page-item'
 import { TableHeaderItem } from '../../data/table-header-item'
 import { SortItem } from '../../data/sort-item'
+import TableHeader from '../molecules/table-header'
 import Pager from '../molecules/pager'
 import Const from '../../const'
 
@@ -29,40 +30,6 @@ const headerItems: TableHeaderItem[] = [
   { label: 'Status' },
   { label: '' },
 ]
-
-const Upicon = (): JSX.Element => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="ml-2 h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M5 15l7-7 7 7"
-    />
-  </svg>
-)
-
-const Downicon = (): JSX.Element => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    className="ml-2 h-3 w-3"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M19 9l-7 7-7-7"
-    />
-  </svg>
-)
 
 export const IndexPage = (): JSX.Element => {
   const router = useRouter()
@@ -113,14 +80,6 @@ export const IndexPage = (): JSX.Element => {
         orderBy: sort?.key ?? sortItem.key,
         order: sort?.order ?? sortItem.order,
       },
-    })
-  }
-
-  const sort = async (item: SortItem): Promise<void> => {
-    setSortItem(item)
-    await pushState(1, {
-      key: item.key,
-      order: sortItem.order === 'asc' ? 'desc' : 'asc',
     })
   }
 
@@ -204,45 +163,19 @@ export const IndexPage = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col mt-8">
+        <div className="mt-8" />
+
+        <div className="flex flex-col mt-8">
           <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
             <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
               <table className="min-w-full">
                 <thead>
-                  <tr>
-                    {headerItems.map((item, index) => (
-                      <th
-                        key={index}
-                        className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        {item.sortable ? (
-                          <a
-                            href="#"
-                            onClick={() =>
-                              sort({
-                                key: item.key,
-                                order:
-                                  sortItem.order === 'asc' ? 'desc' : 'asc',
-                              })
-                            }
-                            className="flex justify-start"
-                          >
-                            <div>{item.label}</div>
-                            <div>
-                              {sortItem.key === item.key &&
-                              sortItem.order === 'asc' ? (
-                                <Upicon />
-                              ) : (
-                                <Downicon />
-                              )}
-                            </div>
-                          </a>
-                        ) : (
-                          <>{item.label}</>
-                        )}
-                      </th>
-                    ))}
-                  </tr>
+                  <TableHeader
+                    headerItems={headerItems}
+                    sortItem={sortItem}
+                    setSortItem={setSortItem}
+                    search={pushState}
+                  />
                 </thead>
 
                 <tbody className="bg-white">
