@@ -1,6 +1,6 @@
 import { NextApiResponse } from 'next'
 import data from '../shared/product-data'
-import { IdRequest } from '../data/id-request'
+import { IdRequest } from '../../../../lib/data/id-request'
 
 export default (req: IdRequest, res: NextApiResponse): void => {
   const id = parseInt(req.query.id, 10)

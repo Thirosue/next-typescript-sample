@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import _, { Many } from 'lodash'
 import data from './shared/product-data'
-import { Product } from './data/product'
+import { Product } from '../../../lib/data/product'
 
 interface ProductGetRequest extends NextApiRequest {
   query: {

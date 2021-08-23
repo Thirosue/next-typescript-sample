@@ -1,6 +1,6 @@
 import { NextApiResponse } from 'next'
-import { Product } from '../data/product'
-import { IdRequest } from '../data/id-request'
+import { Product } from '../../../../lib/data/product'
+import { IdRequest } from '../../../../lib/data/id-request'
 import data from '../shared/product-data'
 
 export default (req: IdRequest, res: NextApiResponse): void => {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Product } from '../data/product'
+import { Product } from '../../../../lib/data/product'
 import data from '../shared/product-data'
 
 export default (req: NextApiRequest, res: NextApiResponse): void => {
