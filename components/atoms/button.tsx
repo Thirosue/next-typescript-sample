@@ -1,4 +1,4 @@
-import _, { Many } from 'lodash'
+import _ from 'lodash'
 
 interface Map {
   key: string
@@ -52,8 +52,8 @@ export const Button = ({
   onClick,
 }: {
   children: React.ReactNode
-  color?: Many<'default' | 'primary' | 'secondary' | 'danger'>
-  size?: Many<'large' | 'medium' | 'small'>
+  color?: 'default' | 'primary' | 'secondary' | 'danger'
+  size?: 'large' | 'medium' | 'small'
   fullWidth?: boolean
   disabled?: boolean
   classes?: string[]

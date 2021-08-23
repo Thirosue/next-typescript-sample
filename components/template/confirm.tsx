@@ -1,4 +1,4 @@
-import _, { Many } from 'lodash'
+import _ from 'lodash'
 import Typography from '../atoms/typography'
 import Button from '../atoms/button'
 import Link from '../atoms/link'
@@ -93,7 +93,7 @@ export const Layout = ({
   onClose: (event: any) => void
   cancellationText?: string
   onCancel: (event: any) => void
-  icon?: Many<'info' | 'warn' | 'alert'>
+  icon?: 'info' | 'warn' | 'alert'
   alert?: boolean
   processing?: boolean
 }): JSX.Element => {

@@ -1,5 +1,4 @@
 import { useState, ReactElement } from 'react'
-import { Many } from 'lodash'
 import { SimpleLayout } from '../components/template'
 import LoginPage from '../components/page/login-page'
 import PasswordDialog from '../components/page/password-dialog'
@@ -7,8 +6,7 @@ import ConfirmCodeModal from '../components/page/confirm-code-dialog'
 
 export default function Login(): JSX.Element {
   // For Password Modal
-  const [state, setState] =
-    useState<Many<'Init' | 'WaitingForCode' | 'Done'>>('Init')
+  const [state, setState] = useState<'Init' | 'WaitingForCode' | 'Done'>('Init')
 
   // For Password Modal
   const [passwordModal, setPasswordModalOpen] = useState(false)

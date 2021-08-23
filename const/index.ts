@@ -1,5 +1,3 @@
-import { Many } from 'lodash'
-
 const Const = {
   SessionRetentionPeriod: 3650,
   defaultPageValue: {
@@ -9,7 +7,7 @@ const Const = {
   },
   sortDefaultValue: {
     key: '',
-    order: '' as Many<''>,
+    order: '' as const,
   },
 }
 

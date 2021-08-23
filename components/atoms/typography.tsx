@@ -1,4 +1,4 @@
-import _, { Many } from 'lodash'
+import _ from 'lodash'
 
 interface Map {
   key: string
@@ -23,7 +23,7 @@ export const Typography = ({
   classes = [],
 }: {
   children: React.ReactNode
-  variant?: Many<
+  variant?:
     | 'h1'
     | 'h2'
     | 'h3'
@@ -34,7 +34,6 @@ export const Typography = ({
     | 'subtitle2'
     | 'body1'
     | 'body2'
-  >
   classes?: string[]
 }): JSX.Element => {
   const _classes = _.head(
