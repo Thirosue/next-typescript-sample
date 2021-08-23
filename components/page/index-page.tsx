@@ -14,8 +14,7 @@ import { PageItem } from '../../data/page-item'
 import { TableHeaderItem } from '../../data/table-header-item'
 import { SortItem } from '../../data/sort-item'
 import Dashboard from '../organisms/dashboard'
-import TableHeader from '../molecules/table-header'
-import Pager from '../molecules/pager'
+import SearchableTable from '../organisms/searchable-table'
 import Const from '../../const'
 
 interface IndexQuery extends ParsedUrlQuery {
@@ -96,34 +95,21 @@ export const IndexPage = (): JSX.Element => {
 
         <div className="mt-8" />
 
-        <div className="flex flex-col mt-8">
-          <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-            <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-              <table className="min-w-full">
-                <thead>
-                  <TableHeader
-                    headerItems={headerItems}
-                    sortItem={sortItem}
-                    setSortItem={setSortItem}
-                    search={pushState}
-                  />
-                </thead>
-
-                <tbody className="bg-white">
-                  {products.isFetched &&
-                    products.data.data.data.map(
-                      (product: Product, index: number) => (
-                        <ProductRow key={index} product={product} />
-                      )
-                    )}
-                </tbody>
-              </table>
-              {products.isFetched && (
-                <Pager search={pushState} pageItem={pageItem} />
-              )}
-            </div>
-          </div>
-        </div>
+        <SearchableTable
+          search={pushState}
+          headerItems={headerItems}
+          pageItem={pageItem}
+          sortItem={sortItem}
+          setSortItem={setSortItem}
+          queryResult={products}
+        >
+          <tbody className="bg-white">
+            {products.isFetched &&
+              products.data.data.data.map((product: Product, index: number) => (
+                <ProductRow key={index} product={product} />
+              ))}
+          </tbody>
+        </SearchableTable>
       </div>
     </>
   )
