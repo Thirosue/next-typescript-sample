@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
-
-const SECRET_KEY = 'secret'
+import TokenHelper, { SECRET_KEY } from '../../../../helpers/token'
 
 export default (req: NextApiRequest, res: NextApiResponse): void => {
   let token = ''
@@ -15,14 +14,7 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
       if (err) {
         res.status(401).json({ message: 'Unauthorized' })
       } else {
-        const token = jwt.sign(
-          {
-            exp: Math.floor(Date.now() / 1000) + 60 * 60,
-            payload: decoded.user,
-          },
-          SECRET_KEY
-        )
-
+        const token = TokenHelper.sign(decoded.user)
         res.status(200).json({ status: 'ok', token })
       }
     })

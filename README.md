@@ -25,19 +25,19 @@ yarn dev
 #### Login
 
 ```
-% http POST localhost:3000/api/auth id=admin password=admin
+% http POST localhost:3000/api/auth id=test@test.com password=admin
 HTTP/1.1 200 OK
 Connection: keep-alive
-Content-Length: 190
+Content-Length: 201
 Content-Type: application/json; charset=utf-8
-Date: Sun, 01 Aug 2021 05:36:28 GMT
-ETag: "be-EUwSL/sFHYoNqEfq43k2ciEXYog"
+Date: Mon, 23 Aug 2021 23:29:25 GMT
+ETag: "c9-6kjwixFGqj2C2hgCqf35OBK/l+Y"
 Keep-Alive: timeout=5
 Vary: Accept-Encoding
 
 {
     "status": "ok",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjc3OTk3ODgsInBheWxvYWQiOnsidXNlciI6ImFkbWluIn0sImlhdCI6MTYyNzc5NjE4OH0.vkZzymb3hyftl2pb75wuLKaavfnZV5ZlR88aISIQOBQ"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjk3NjQ5NjQsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20ifSwiaWF0IjoxNjI5NzYxMzY0fQ.3M5XsLvIfiCcUcux6Ygs5X1GTksMtopwXPjf-cJdhr0"
 }
 ```
 

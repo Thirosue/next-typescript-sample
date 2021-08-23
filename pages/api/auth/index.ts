@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import jwt from 'jsonwebtoken'
-
-const SECRET_KEY = 'secret'
+import TokenHelper from '../../../helpers/token'
 
 interface AuthRequest extends NextApiRequest {
   body: {
@@ -22,13 +20,7 @@ export default async (
     const payload = {
       user: req.body.id,
     }
-    const token = jwt.sign(
-      {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
-        payload,
-      },
-      SECRET_KEY
-    )
+    const token = TokenHelper.sign(payload)
     await new Promise((resolve) => setTimeout(resolve, 1000))
     res.status(200).json({ status: 'ok', token })
   } else {
