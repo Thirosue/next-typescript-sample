@@ -384,7 +384,7 @@ describe('Pager components', () => {
     const page = new Page(container)
 
     // 期待値
-    // 6ページ 1 ... 7 8 9 [10]
+    // 10ページ 1 ... 7 8 9 [10]
     const {
       page1,
       page2,

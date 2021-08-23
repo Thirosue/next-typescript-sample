@@ -14,6 +14,7 @@ const ColorSetting: Map[] = [
       'hover:bg-indigo-700',
       'focus:ring-indigo-500',
       'border-transparent',
+      'primary-button',
     ],
   },
   {
@@ -24,6 +25,7 @@ const ColorSetting: Map[] = [
       'hover:bg-gray-100',
       'focus:ring-indigo-500',
       'border-gray-300',
+      'default-button',
     ],
   },
   {
@@ -34,6 +36,7 @@ const ColorSetting: Map[] = [
       'hover:bg-red-700',
       'focus:ring-red-500',
       'border-transparent',
+      'danger-button',
     ],
   },
 ]
