@@ -29,7 +29,6 @@
     "@hookform/resolvers": "2.8.0",
     "axios": "0.21.1",
     "date-fns": "2.23.0",
-    "gray-matter": "4.0.3",
     "jsonwebtoken": "8.5.1",
     "lodash": "4.17.21",
     "next": "11.1.0",
@@ -39,8 +38,6 @@
     "react-hook-form": "7.12.2",
     "react-query": "3.19.6",
     "react-toastify": "7.0.4",
-    "remark": "13.0.0",
-    "remark-html": "13.0.1",
     "yup": "0.32.9"
   },
   "devDependencies": {

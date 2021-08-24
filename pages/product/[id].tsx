@@ -1,48 +1,66 @@
-import Layout from '../../components/layout'
-import { getAllPostIds, getPostData } from '../../lib/posts'
-import Head from 'next/head'
-import Date from '../../components/date'
-import utilStyles from '../../styles/utils.module.css'
-import { GetStaticProps, GetStaticPaths } from 'next'
+import _ from 'lodash'
+import { ReactElement } from 'react'
+import { DashboardLayout } from '../../components/template'
+import { GetServerSideProps } from 'next'
+import { NextApiRequestCookies } from 'next/dist/server/api-utils'
+import { GlobalState } from '../../data/global-state'
+import TokenHelper from '../../helpers/token'
+import { Product } from '../../lib/data/product'
+import data from '../../lib/shared/product-data'
+import { ParsedUrlQuery } from 'querystring'
 
-export default function Post({
-  postData,
+const captains = console
+
+type SessionCookie = NextApiRequestCookies & {
+  state?: string
+}
+
+type ProductDetailParam = ParsedUrlQuery & {
+  id: string
+}
+
+export default function ProductDetail({
+  product,
 }: {
-  postData: {
-    title: string
-    date: string
-    contentHtml: string
-  }
+  product: Product
 }): JSX.Element {
-  return (
-    <Layout>
-      <Head>
-        <title>{postData.title}</title>
-      </Head>
-      <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article>
-    </Layout>
-  )
+  return <>{product.name}</>
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllPostIds()
-  return {
-    paths,
-    fallback: false,
-  }
+ProductDetail.getLayout = function getLayout(page: ReactElement) {
+  return <DashboardLayout title={'商品詳細'}>{page}</DashboardLayout>
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getPostData(params.id as string)
-  return {
-    props: {
-      postData,
-    },
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookie = context.req.cookies as SessionCookie
+  const params = context.params as ProductDetailParam
+  try {
+    const { session } = JSON.parse(cookie.state) as GlobalState
+    TokenHelper.verify(session.jwtToken)
+    const product = _.head(
+      data.getProducts().filter((row: Product) => row.id === Number(params.id))
+    )
+    if (product) {
+      return {
+        props: {
+          product,
+        },
+      }
+    } else {
+      return {
+        redirect: {
+          permanent: false, // 永続的なリダイレクトかどうか
+          destination: '/404', // リダイレクト先
+        },
+      }
+    }
+  } catch (e) {
+    captains.warn('cookie is invalid... redirect to login page')
+    return {
+      redirect: {
+        permanent: false, // 永続的なリダイレクトかどうか
+        destination: '/login', // リダイレクト先
+      },
+    }
   }
 }
