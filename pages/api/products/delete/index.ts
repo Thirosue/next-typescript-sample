@@ -1,5 +1,5 @@
 import { NextApiResponse } from 'next'
-import data from '../shared/product-data'
+import data from '../../../../lib/shared/product-data'
 import { IdRequest } from '../../../../lib/data/id-request'
 
 export default (req: IdRequest, res: NextApiResponse): void => {

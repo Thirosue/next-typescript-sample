@@ -1,5 +1,5 @@
-import { Product } from '../../../../lib/data/product'
-import { Products } from '../../../../lib/data/products'
+import { Product } from '../data/product'
+import { Products } from '../data/products'
 
 const data: Products = {
   products: [
