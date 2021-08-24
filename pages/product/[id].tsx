@@ -2,12 +2,20 @@ import _ from 'lodash'
 import { ReactElement } from 'react'
 import { DashboardLayout } from '../../components/template'
 import { GetServerSideProps } from 'next'
+import { useForm } from 'react-hook-form'
 import { NextApiRequestCookies } from 'next/dist/server/api-utils'
 import { GlobalState } from '../../data/global-state'
 import TokenHelper from '../../helpers/token'
 import { Product } from '../../lib/data/product'
 import data from '../../lib/shared/product-data'
 import { ParsedUrlQuery } from 'querystring'
+import {
+  FormLabel,
+  FormErrorMessage,
+  Button,
+  Typography,
+} from '../../components/atoms'
+import { TextFieldType } from '../../data'
 
 const captains = console
 
@@ -24,7 +32,89 @@ export default function ProductDetail({
 }: {
   product: Product
 }): JSX.Element {
-  return <>{product.name}</>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Product>({
+    defaultValues: {
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      quantity: product.quantity,
+    },
+  })
+
+  const doSubmit = (data: Product): void => {
+    captains.log(data)
+  }
+
+  return (
+    <>
+      <div className="container mx-auto px-6 py-8">
+        <Typography variant="h4">商品詳細</Typography>
+
+        <form className="mt-4" onSubmit={handleSubmit(doSubmit)}>
+          <label className="block">
+            <FormLabel>ID</FormLabel>
+            <input
+              disabled
+              id="id"
+              type={TextFieldType.Text}
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600`}
+              {...register('id')}
+            />
+          </label>
+
+          <label className="block mt-3">
+            <FormLabel>Name</FormLabel>
+            <input
+              id="name"
+              type={TextFieldType.Text}
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
+                errors.name ? 'border-red-400' : ''
+              }`}
+              {...register('name')}
+            />
+            <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
+          </label>
+
+          <label className="block mt-3">
+            <FormLabel>Description</FormLabel>
+            <input
+              id="description"
+              type={TextFieldType.Text}
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
+                errors.description ? 'border-red-400' : ''
+              }`}
+              {...register('description')}
+            />
+            <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+          </label>
+
+          <label className="block mt-3">
+            <FormLabel>Quantity</FormLabel>
+            <input
+              id="quantity"
+              type={TextFieldType.Number}
+              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600 ${
+                errors.quantity ? 'border-red-400' : ''
+              }`}
+              {...register('quantity')}
+            />
+            <FormErrorMessage>{errors.quantity?.message}</FormErrorMessage>
+          </label>
+
+          <div className="mt-6 flex justify-center">
+            <Button color={'default'} classes={['mx-4']}>
+              戻る
+            </Button>
+            <Button color={'primary'}>更新</Button>
+          </div>
+        </form>
+      </div>
+    </>
+  )
 }
 
 ProductDetail.getLayout = function getLayout(page: ReactElement) {
