@@ -5,7 +5,7 @@ import { GetServerSideProps } from 'next'
 import { useForm } from 'react-hook-form'
 import { NextApiRequestCookies } from 'next/dist/server/api-utils'
 import { GlobalState } from '../../data/global-state'
-import TokenHelper from '../../helpers/token'
+// import TokenHelper from '../../helpers/token'
 import { Product } from '../../lib/data/product'
 import data from '../../lib/shared/product-data'
 import { ParsedUrlQuery } from 'querystring'
@@ -14,6 +14,7 @@ import {
   FormErrorMessage,
   Button,
   Typography,
+  InputLabel,
 } from '../../components/atoms'
 import { TextFieldType } from '../../data'
 
@@ -57,13 +58,7 @@ export default function ProductDetail({
         <form className="mt-4" onSubmit={handleSubmit(doSubmit)}>
           <label className="block">
             <FormLabel>ID</FormLabel>
-            <input
-              disabled
-              id="id"
-              type={TextFieldType.Text}
-              className={`mt-1 w-full border-gray-300 block rounded-md focus:border-indigo-600`}
-              {...register('id')}
-            />
+            <InputLabel fullWidth={true} value={product.id} />
           </label>
 
           <label className="block mt-3">
@@ -126,10 +121,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const params = context.params as ProductDetailParam
   try {
     const { session } = JSON.parse(cookie.state) as GlobalState
-    TokenHelper.verify(session.jwtToken)
+    captains.log(session)
+    // TokenHelper.verify(session.jwtToken)
     const product = _.head(
       data.getProducts().filter((row: Product) => row.id === Number(params.id))
     )
+    captains.log(`target product id = ${product.id}`)
     if (product) {
       return {
         props: {
@@ -145,6 +142,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     }
   } catch (e) {
+    captains.warn(e)
     captains.warn('cookie is invalid... redirect to login page')
     return {
       redirect: {

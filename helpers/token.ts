@@ -13,8 +13,16 @@ class TokenHelper {
     )
   }
 
-  public static verify(token: string): any {
-    return jwt.verify(token, SECRET_KEY)
+  public static verify(token: string): string | void {
+    const newToken = jwt.verify(token, SECRET_KEY, (err: any, decoded: any) => {
+      if (err) {
+        throw err
+      } else {
+        const token = this.sign(decoded.user)
+        return token
+      }
+    })
+    return newToken
   }
 }
 

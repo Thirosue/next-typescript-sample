@@ -60,11 +60,19 @@ const GlobalStateProvider = ({
     setState({ ...state, ...value })
   }
 
+  const renewToken = (token: string): void => {
+    setState({
+      ...state,
+      ...{ session: { jwtToken: token, sub: state.session.sub } },
+    })
+  }
+
   const isSignin = () => !!state.session.sub
 
   const global = {
     state,
     updateState,
+    renewToken,
     clearState,
     isSignin,
   }

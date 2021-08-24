@@ -5,6 +5,7 @@ export default createContext(
   {} as {
     state: GlobalState
     updateState: (value: GlobalState) => void
+    renewToken: (token: string) => void
     clearState: () => void
     isSignin: () => boolean
   }
