@@ -4,16 +4,12 @@ import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
-import { NextApiRequestCookies } from 'next/dist/server/api-utils'
 import { useMutation } from 'react-query'
 import { AxiosPromise } from 'axios'
 import { ProductRepository } from '../../repository/product-repository'
 import { DashboardLayout } from '../../components/template'
-import { GlobalState } from '../../data/global-state'
-import TokenHelper from '../../helpers/token'
 import { Product } from '../../lib/data/product'
 import data from '../../lib/shared/product-data'
-import { ParsedUrlQuery } from 'querystring'
 import {
   FormLabel,
   FormErrorMessage,
@@ -27,16 +23,9 @@ import {
   ProductUpdateRequest,
   BaseResponse,
 } from '../../repository/product-repository'
+import { checkSession } from '../../utils/checkSession'
 
 const captains = console
-
-type SessionCookie = NextApiRequestCookies & {
-  state?: string
-}
-
-type ProductDetailParam = ParsedUrlQuery & {
-  id: string
-}
 
 export default function ProductDetail({
   product,
@@ -139,12 +128,8 @@ ProductDetail.getLayout = function getLayout(page: ReactElement) {
   return <DashboardLayout title={'商品詳細'}>{page}</DashboardLayout>
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookie = context.req.cookies as SessionCookie
-  const params = context.params as ProductDetailParam
-  try {
-    const { session } = JSON.parse(cookie.state) as GlobalState
-    TokenHelper.verify(session.jwtToken)
+export const getServerSideProps: GetServerSideProps = checkSession(
+  async ({ params }) => {
     const product = _.head(
       data.getProducts().filter((row: Product) => row.id === Number(params.id))
     )
@@ -163,14 +148,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         },
       }
     }
-  } catch (e) {
-    captains.warn(e)
-    captains.warn('cookie is invalid... redirect to login page')
-    return {
-      redirect: {
-        permanent: false, // 永続的なリダイレクトかどうか
-        destination: '/login', // リダイレクト先
-      },
-    }
   }
-}
+)
