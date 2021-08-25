@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { DashboardLayout } from '../components/template'
 import IndexPage from '../components/page/index-page'
 import { GetServerSideProps } from 'next'
-import { checkSession } from '../utils/checkSession'
+import { checkSession } from '../filters/checkSession'
 
 export default function Index(): JSX.Element {
   return <IndexPage />

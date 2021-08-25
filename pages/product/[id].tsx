@@ -23,7 +23,7 @@ import {
   ProductUpdateRequest,
   BaseResponse,
 } from '../../repository/product-repository'
-import { checkSession } from '../../utils/checkSession'
+import { checkSession } from '../../filters/checkSession'
 
 const captains = console
 
