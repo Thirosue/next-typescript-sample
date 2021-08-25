@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router'
 import { Product } from '../../repository/product-repository'
 
 export const ProductRow = ({ product }: { product: Product }): JSX.Element => {
+  const router = useRouter()
+
   return (
     <tr>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -28,7 +31,11 @@ export const ProductRow = ({ product }: { product: Product }): JSX.Element => {
       </td>
 
       <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+        <a
+          href="#"
+          onClick={() => router.push(`/product/${product.id}`)}
+          className="text-indigo-600 hover:text-indigo-900"
+        >
           Edit
         </a>
       </td>

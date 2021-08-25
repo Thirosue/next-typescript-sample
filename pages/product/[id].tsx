@@ -1,11 +1,16 @@
 import _ from 'lodash'
 import { ReactElement } from 'react'
-import { DashboardLayout } from '../../components/template'
+import { useRouter } from 'next/router'
 import { GetServerSideProps } from 'next'
+import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import { NextApiRequestCookies } from 'next/dist/server/api-utils'
+import { useMutation } from 'react-query'
+import { AxiosPromise } from 'axios'
+import { ProductRepository } from '../../repository/product-repository'
+import { DashboardLayout } from '../../components/template'
 import { GlobalState } from '../../data/global-state'
-// import TokenHelper from '../../helpers/token'
+import TokenHelper from '../../helpers/token'
 import { Product } from '../../lib/data/product'
 import data from '../../lib/shared/product-data'
 import { ParsedUrlQuery } from 'querystring'
@@ -16,7 +21,12 @@ import {
   Typography,
   InputLabel,
 } from '../../components/atoms'
+import Progress from '../../components/progress'
 import { TextFieldType } from '../../data'
+import {
+  ProductUpdateRequest,
+  BaseResponse,
+} from '../../repository/product-repository'
 
 const captains = console
 
@@ -33,6 +43,7 @@ export default function ProductDetail({
 }: {
   product: Product
 }): JSX.Element {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -45,13 +56,25 @@ export default function ProductDetail({
       quantity: product.quantity,
     },
   })
+  const mutation = useMutation(
+    (req: ProductUpdateRequest): AxiosPromise<BaseResponse> =>
+      ProductRepository.update(req)
+  )
 
   const doSubmit = (data: Product): void => {
     captains.log(data)
+    const request: ProductUpdateRequest = { ...data }
+    mutation.mutate(request, {
+      onSuccess: async () => {
+        await router.push('/')
+        setTimeout(() => toast.success('商品を更新しました'), 100) // display toast after screen transition
+      },
+    })
   }
 
   return (
     <>
+      <Progress processing={mutation.isLoading} />
       <div className="container mx-auto px-6 py-8">
         <Typography variant="h4">商品詳細</Typography>
 
@@ -121,8 +144,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const params = context.params as ProductDetailParam
   try {
     const { session } = JSON.parse(cookie.state) as GlobalState
-    captains.log(session)
-    // TokenHelper.verify(session.jwtToken)
+    TokenHelper.verify(session.jwtToken)
     const product = _.head(
       data.getProducts().filter((row: Product) => row.id === Number(params.id))
     )
