@@ -1,12 +1,15 @@
 import React, { FC, ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import GlobalStateProvider from '../context/global-state-provider'
 
 const queryClient = new QueryClient()
 
 const AllTheProviders: FC = ({ children }) => {
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <GlobalStateProvider>{children}</GlobalStateProvider>
+    </QueryClientProvider>
   )
 }
 

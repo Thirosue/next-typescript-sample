@@ -1,18 +1,36 @@
 import React from 'react'
+import { act } from 'react-dom/test-utils'
 import { render, fireEvent } from '../testUtils'
 import Login from '../../pages/login'
+import axios from 'axios'
 
-describe('Home page', () => {
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      push: jest.fn(),
+    }
+  },
+}))
+
+const mock = () =>
+  jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      data: {},
+    })
+  )
+
+describe('Login page', () => {
   it('matches snapshot', () => {
     const { asFragment } = render(<Login />, {})
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('clicking button triggers alert', () => {
+  it('clicking button triggers sign in', async () => {
     const { getByText } = render(<Login />, {})
-    console.log = jest.fn()
-    fireEvent.click(getByText('Sign in'))
-    // FIXME
-    // expect(console.log).toBeCalledTimes(1)
+    axios.put = mock()
+    await act(async () => {
+      fireEvent.click(getByText('Sign in'))
+    })
+    expect(axios.put).toBeCalledTimes(1)
   })
 })
