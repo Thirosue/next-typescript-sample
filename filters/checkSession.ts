@@ -3,6 +3,7 @@ import { NextApiRequestCookies } from 'next/dist/server/api-utils'
 import { GlobalState } from '../data/global-state'
 import TokenHelper from '../helpers/token'
 import { ParsedUrlQuery } from 'node:querystring'
+import { destroyCookie } from 'nookies'
 
 const captains = console
 
@@ -20,6 +21,7 @@ export const checkSession =
       return f(ctx)
     } catch (e) {
       captains.warn('cookie is invalid... redirect to login page')
+      destroyCookie(ctx, 'state')
       return {
         redirect: {
           permanent: false, // 永続的なリダイレクトかどうか

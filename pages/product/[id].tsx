@@ -23,7 +23,7 @@ import {
   ProductUpdateRequest,
   BaseResponse,
 } from '../../repository/product-repository'
-import { checkSession } from '../../filters/checkSession'
+import { addFilters } from '../../filters/addFilters'
 
 const captains = console
 
@@ -128,7 +128,7 @@ ProductDetail.getLayout = function getLayout(page: ReactElement) {
   return <DashboardLayout title={'商品詳細'}>{page}</DashboardLayout>
 }
 
-export const getServerSideProps: GetServerSideProps = checkSession(
+export const getServerSideProps: GetServerSideProps = addFilters(
   async ({ params }) => {
     const product = _.head(
       data.getProducts().filter((row: Product) => row.id === Number(params.id))

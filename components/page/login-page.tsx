@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
@@ -7,6 +7,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { AxiosPromise, AxiosResponse, AxiosError } from 'axios'
 import { useMutation } from 'react-query'
+import { destroyCookie, setCookie, parseCookies } from 'nookies'
+import isAfter from 'date-fns/isAfter'
+import jwt from 'jsonwebtoken'
 import useConfirm from '../../hooks/useConfirm'
 import GlobalContext from '../../context/global-context'
 import Logo from '../../components/logo'
@@ -68,8 +71,61 @@ export const LoginPage = ({
     defaultValues: {
       email: 'test@test.com',
       password: 'Password1?',
+      rememberMe: Boolean(parseCookies(null).rememberMe),
     },
   })
+
+  useEffect(() => {
+    const rememberMe = Boolean(parseCookies(null).rememberMe)
+    const { jwtToken } = context.state.session
+    const decodedToken = jwt.decode(jwtToken, {
+      complete: true,
+    })
+    const exp = new Date((decodedToken?.payload.exp * 1000) as number)
+    if (rememberMe && isAfter(exp, new Date())) {
+      router
+        .push('/')
+        .then(() => setTimeout(() => toast('自動ログインしました'), 100))
+    } else {
+      context.clearState()
+    }
+  }, [parseCookies(null).rememberMe])
+
+  const rememberMe = async (event: any): Promise<void> => {
+    if (event.target.checked) {
+      const cancel = await confirm({
+        title: '自動ログイン設定',
+        icon: 'info',
+        description: '自動ログインを有効にしますか？',
+      })
+        .then(() => {
+          setCookie(null, 'rememberMe', 'true')
+        })
+        .catch(() => {
+          return true
+        })
+      if (cancel) {
+        event.target.checked = false
+        event.preventDefault()
+      }
+    } else {
+      const cancel = await confirm({
+        title: '自動ログイン設定',
+        icon: 'info',
+        description: '自動ログインを無効にしますか？',
+      })
+        .then(() => {
+          destroyCookie(null, 'rememberMe')
+        })
+        .catch(() => {
+          return true
+        })
+      if (cancel) {
+        event.target.checked = true
+        event.preventDefault()
+      }
+    }
+  }
 
   const doSubmit = (data: FormValues): void => {
     captains.log(data)
@@ -159,6 +215,7 @@ export const LoginPage = ({
               <div>
                 <label className="inline-flex items-center">
                   <input
+                    onClick={rememberMe}
                     type="checkbox"
                     className="form-checkbox text-indigo-600"
                     {...register('rememberMe')}

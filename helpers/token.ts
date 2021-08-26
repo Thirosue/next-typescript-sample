@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken'
 export const SECRET_KEY = 'secret'
 
 class TokenHelper {
+  // eslint-disable-next-line
   public static sign(payload: any): any {
-    // eslint-disable-line
     return jwt.sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60,
