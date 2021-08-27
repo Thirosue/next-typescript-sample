@@ -50,7 +50,6 @@
     "@types/react": "17.0.19",
     "@typescript-eslint/eslint-plugin": "4.29.3",
     "@typescript-eslint/parser": "4.29.3",
-    "autoprefixer": "10.3.2",
     "babel-jest": "27.0.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
@@ -60,7 +59,6 @@
     "jest": "27.0.6",
     "jest-watch-typeahead": "0.6.4",
     "lint-staged": "11.1.2",
-    "postcss": "8.3.6",
     "prettier": "2.3.2",
     "tailwindcss": "2.2.7",
     "typescript": "4.3.5"
