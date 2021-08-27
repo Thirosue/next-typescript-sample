@@ -58,7 +58,7 @@ exports[`Login page matches snapshot 1`] = `
             type="email"
           />
           <p
-            class="text-red-500 text-xs mt-1"
+            class="text-red-500 text-xs mt-1 email-error-message-area"
           />
         </label>
         <label
@@ -78,7 +78,7 @@ exports[`Login page matches snapshot 1`] = `
             type="password"
           />
           <p
-            class="text-red-500 text-xs mt-1"
+            class="text-red-500 text-xs mt-1 password-error-message-area"
           />
         </label>
         <div
@@ -90,6 +90,7 @@ exports[`Login page matches snapshot 1`] = `
             >
               <input
                 class="form-checkbox text-indigo-600"
+                id="rememberMe"
                 name="rememberMe"
                 type="checkbox"
               />

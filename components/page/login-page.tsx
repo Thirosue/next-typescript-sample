@@ -45,7 +45,7 @@ const schema = yup.object().shape({
     .string()
     .required('入力してください')
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       'アルファベット（大文字小文字混在）と数字と特殊記号を組み合わせて8文字以上で入力してください'
     ),
 })
@@ -69,8 +69,8 @@ export const LoginPage = ({
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
     defaultValues: {
-      email: 'test@test.com',
-      password: 'Password1?',
+      // email: 'test@test.com',
+      // password: 'Password1?',
       rememberMe: Boolean(parseCookies(null).rememberMe),
     },
   })
@@ -195,7 +195,9 @@ export const LoginPage = ({
                 }`}
                 {...register('email')}
               />
-              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+              <FormErrorMessage classes={['mt-1', 'email-error-message-area']}>
+                {errors.email?.message}
+              </FormErrorMessage>
             </label>
 
             <label className="block mt-3">
@@ -208,7 +210,11 @@ export const LoginPage = ({
                 }`}
                 {...register('password')}
               />
-              <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
+              <FormErrorMessage
+                classes={['mt-1', 'password-error-message-area']}
+              >
+                {errors.password?.message}
+              </FormErrorMessage>
             </label>
 
             <div className="flex justify-between items-center mt-4">
@@ -216,6 +222,7 @@ export const LoginPage = ({
                 <label className="inline-flex items-center">
                   <input
                     onClick={rememberMe}
+                    id="rememberMe"
                     type="checkbox"
                     className="form-checkbox text-indigo-600"
                     {...register('rememberMe')}

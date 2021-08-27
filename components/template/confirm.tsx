@@ -106,7 +106,7 @@ export const Layout = ({
 
   return (
     <div
-      className="fixed z-10 inset-0 overflow-y-auto"
+      className="fixed z-10 inset-0 overflow-y-auto modal-dialog"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -129,7 +129,7 @@ export const Layout = ({
               <div>
                 <div className="sm:flex sm:items-start">
                   {icon && DialogIcon()}
-                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                  <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left modal-title">
                     {title && <Typography variant={'h6'}>{title}</Typography>}
                   </div>
                 </div>
@@ -151,13 +151,13 @@ export const Layout = ({
                 </svg>
               </Link>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 modal-message">
               <div>{children}</div>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
             <Button
-              classes={['sm:ml-3', 'sm:w-auto']}
+              classes={['sm:ml-3', 'sm:w-auto', 'modal-submit']}
               color={'primary'}
               onClick={onSubmit}
               fullWidth={true}
@@ -168,7 +168,13 @@ export const Layout = ({
             {!alert && (
               <>
                 <Button
-                  classes={['mt-3', 'sm:ml-3', 'sm:w-auto', 'sm:mt-0']}
+                  classes={[
+                    'mt-3',
+                    'sm:ml-3',
+                    'sm:w-auto',
+                    'sm:mt-0',
+                    'modal-cancel',
+                  ]}
                   fullWidth={true}
                   onClick={onCancel}
                 >
