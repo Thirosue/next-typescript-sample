@@ -23,7 +23,7 @@ import {
   ProductUpdateRequest,
   BaseResponse,
 } from '../../repository/product-repository'
-import { addFilters } from '../../filters/addFilters'
+import { checkSession } from '../../filters/checkSession'
 
 const captains = console
 
@@ -55,10 +55,15 @@ export default function ProductDetail({
     const request: ProductUpdateRequest = { ...data }
     mutation.mutate(request, {
       onSuccess: async () => {
-        await router.push('/')
+        await router.push(`/complete?to=/`)
         setTimeout(() => toast.success('商品を更新しました'), 100) // display toast after screen transition
       },
     })
+  }
+
+  const back = (event: any): void => {
+    router.back()
+    event.preventDefault()
   }
 
   return (
@@ -113,10 +118,12 @@ export default function ProductDetail({
           </label>
 
           <div className="mt-6 flex justify-center">
-            <Button color={'default'} classes={['mx-4']}>
+            <Button onClick={back} color={'default'} classes={['mx-4']}>
               戻る
             </Button>
-            <Button color={'primary'}>更新</Button>
+            <Button disabled={mutation.isLoading} color={'primary'}>
+              更新
+            </Button>
           </div>
         </form>
       </div>
@@ -128,7 +135,7 @@ ProductDetail.getLayout = function getLayout(page: ReactElement) {
   return <DashboardLayout title={'商品詳細'}>{page}</DashboardLayout>
 }
 
-export const getServerSideProps: GetServerSideProps = addFilters(
+export const getServerSideProps: GetServerSideProps = checkSession(
   async ({ params }) => {
     const product = _.head(
       data.getProducts().filter((row: Product) => row.id === Number(params.id))
