@@ -1158,7 +1158,7 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-autoprefixer@^10.3.3:
+autoprefixer@10.3.3:
   version "10.3.3"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.3.3.tgz#4bac89c74ef98e6a40fe1c5b76c0d1c91db153ce"
   integrity sha512-yRzjxfnggrP/+qVHlUuZz5FZzEbkT+Yt0/Df6ScEMnbbZBLzYB2W0KLxoQCW+THm1SpOsM1ZPcTHAwuvmibIsQ==
@@ -4881,10 +4881,10 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-toastify@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-8.0.0.tgz#f2ac0801610a72610628d739189078871ad02235"
-  integrity sha512-7a5uhwbJ5Ivp5QyJN8P9M8g+7wksJt51QuYAZW0c3pDOh0Jx8lH7XzNHzzJg4NHup9n4zcqH9rwXknnyzYg2OA==
+react-toastify@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-8.0.1.tgz#5787e0bc3fc3106c264fcafe101e77650b9448ba"
+  integrity sha512-hHf4sJo9D+SKPcNM5iiri1UDXjZkDvflMGCPNnfm4fjUEC3rH4tRqOQB5IXjroEtArRRf3f26nTsKdficEBBIg==
   dependencies:
     clsx "^1.1.1"
 
