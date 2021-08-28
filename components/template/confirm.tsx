@@ -74,7 +74,7 @@ const IconMapping: Map[] = [
   },
 ]
 
-export const Layout = ({
+export const Confirm = ({
   title,
   children,
   onSubmit,
@@ -189,4 +189,4 @@ export const Layout = ({
   )
 }
 
-export default Layout
+export default Confirm
