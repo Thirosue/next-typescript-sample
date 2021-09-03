@@ -20,6 +20,8 @@ import Const from '../../const'
 interface IndexQuery extends ParsedUrlQuery {
   keyword: string
   page: string
+  order: string
+  orderBy: string
 }
 
 const headerItems: TableHeaderItem[] = [
