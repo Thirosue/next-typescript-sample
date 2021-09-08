@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-interface ChangePasswordRequest extends NextApiRequest {
+type ChangePasswordRequest = NextApiRequest & {
   body: {
     password: string
   }

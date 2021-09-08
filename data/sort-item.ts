@@ -1,4 +1,4 @@
-export interface SortItem {
+export type SortItem = {
   key: string
   order: '' | 'asc' | 'desc'
 }

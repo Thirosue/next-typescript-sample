@@ -1,6 +1,6 @@
 import React from 'react'
 
-export interface DialogOptions {
+export type DialogOptions = {
   html?: boolean
   alert?: boolean
   icon?: 'info' | 'warn' | 'alert'

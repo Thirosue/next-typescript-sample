@@ -1,6 +1,6 @@
 import axios, { AxiosPromise } from 'axios'
 
-export interface ProductListRequest {
+export type ProductListRequest = {
   name?: string
   description?: string
   page: number
@@ -9,19 +9,19 @@ export interface ProductListRequest {
   orderBy?: string
 }
 
-export interface Product {
+export type Product = {
   name: string
   description: string
   id: number
   quantity: number
 }
 
-export interface ProductResponse {
+export type ProductResponse = {
   count: number
   data: Product[]
 }
 
-export interface BaseResponse {
+export type BaseResponse = {
   status: string
 }
 

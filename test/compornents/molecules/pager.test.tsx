@@ -3,7 +3,7 @@ import { render } from '../../testUtils'
 import { PageItem } from '../../../data/page-item'
 import Pager from '../../../components/molecules/pager'
 
-interface Pages {
+type Pages = {
   page1: Element
   page2: Element
   page3: Element

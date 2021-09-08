@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-interface CodeVerifyRequest extends NextApiRequest {
+type CodeVerifyRequest = NextApiRequest & {
   body: {
     code: string
   }

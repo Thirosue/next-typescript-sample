@@ -3,7 +3,7 @@ import _, { Many } from 'lodash'
 import data from '../../../lib/shared/product-data'
 import { Product } from '../../../lib/data/product'
 
-interface ProductGetRequest extends NextApiRequest {
+type ProductGetRequest = NextApiRequest & {
   query: {
     name: string | undefined
     description: string | undefined

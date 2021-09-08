@@ -17,7 +17,7 @@ import Dashboard from '../organisms/dashboard'
 import SearchableTable from '../organisms/searchable-table'
 import Const from '../../const'
 
-interface IndexQuery extends ParsedUrlQuery {
+type IndexQuery = ParsedUrlQuery & {
   keyword: string
   page: string
   order: string

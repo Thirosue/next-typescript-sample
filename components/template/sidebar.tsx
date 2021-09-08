@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import NaviItem from '../molecules/navi-item'
 
-interface Item {
+type Item = {
   label: string
   link: string
   icon: React.ReactNode

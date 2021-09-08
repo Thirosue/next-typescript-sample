@@ -1,27 +1,27 @@
 import axios, { AxiosPromise } from 'axios'
 
-export interface AuthRequest {
+export type AuthRequest = {
   id: string
   password: string
 }
 
-export interface CheckSessionRequest {
+export type CheckSessionRequest = {
   jwt: string
 }
 
-export interface ChangePasswordRequest {
+export type ChangePasswordRequest = {
   password: string
 }
 
-export interface VerifyCodeRequest {
+export type VerifyCodeRequest = {
   code: string
 }
 
-export interface BaseResponse {
+export type BaseResponse = {
   status: string
 }
 
-export interface AuthResponse {
+export type AuthResponse = {
   status: string
   token: string
 }

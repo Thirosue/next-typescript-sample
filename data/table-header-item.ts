@@ -1,4 +1,4 @@
-export interface TableHeaderItem {
+export type TableHeaderItem = {
   key?: string
   label: string
   sortable?: boolean

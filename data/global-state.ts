@@ -1,5 +1,5 @@
 import { Session } from './session'
 
-export interface GlobalState {
+export type GlobalState = {
   session: Session
 }

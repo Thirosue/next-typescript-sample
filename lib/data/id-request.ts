@@ -1,6 +1,6 @@
 import { NextApiRequest } from 'next'
 
-export interface IdRequest extends NextApiRequest {
+export type IdRequest = NextApiRequest & {
   query: {
     id: string | undefined
   }

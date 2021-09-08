@@ -3,7 +3,7 @@ import Typography from '../atoms/typography'
 import Button from '../atoms/button'
 import Link from '../atoms/link'
 
-interface Map {
+type Map = {
   key: string
   element: React.ReactNode
 }

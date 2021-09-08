@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import TokenHelper from '../../../helpers/token'
 
-interface AuthRequest extends NextApiRequest {
+type AuthRequest = NextApiRequest & {
   body: {
     id: string
     password: string

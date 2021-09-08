@@ -1,5 +1,5 @@
 import { Product } from './product'
 
-export interface Products {
+export type Products = {
   products: Product[]
 }

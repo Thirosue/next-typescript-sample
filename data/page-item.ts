@@ -1,4 +1,4 @@
-export interface PageItem {
+export type PageItem = {
   page: number
   totalPage?: number
   totalCount: number

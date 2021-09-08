@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-interface Map {
+type Map = {
   key: string
   class: string[]
 }
