@@ -138,7 +138,7 @@ export const Pager = ({
             {1 <= pageItem.totalPage && (
               <PageLink page={1} handleClick={search} active={isFirstActive} />
             )}
-            {pages.length &&
+            {0 < pages.length &&
               pages.map((page, index: number) => (
                 <React.Fragment key={index}>
                   {index === 0 && 2 < page && <OmitLink />}
