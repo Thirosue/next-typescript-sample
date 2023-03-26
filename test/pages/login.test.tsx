@@ -5,14 +5,6 @@ import Login from '../../pages/login'
 import { setCookie, parseCookies, destroyCookie } from 'nookies'
 import axios from 'axios'
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-    }
-  },
-}))
-
 class Page {
   container: HTMLElement
   constructor(container: HTMLElement) {

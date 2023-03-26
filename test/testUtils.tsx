@@ -6,6 +6,14 @@ import ConfirmProvider from '../context/confirm-provider'
 
 const queryClient = new QueryClient()
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      push: jest.fn(),
+    }
+  },
+}))
+
 const AllTheProviders: FC = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
