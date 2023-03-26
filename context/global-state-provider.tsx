@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosPromise, AxiosResponse } from 'axios'
 import { parseCookies, setCookie } from 'nookies'
 import GlobalContext from './global-context'
@@ -53,15 +53,20 @@ const GlobalStateProvider = ({
   )
 
   const clearState = (): void => {
-    setState({ ...INIT_STATE })
+    updateState({ ...INIT_STATE })
   }
 
   const updateState = (value: GlobalState): void => {
     setState({ ...state, ...value })
+    setCookie(null, 'state', JSON.stringify({ ...state, ...value }), {
+      // 60秒 * 60 * 24 * 3650 日間保存
+      maxAge: 24 * 60 * 60 * Const.SessionRetentionPeriod,
+      secure: true,
+    })
   }
 
   const renewToken = (token: string): void => {
-    setState({
+    updateState({
       ...state,
       ...{ session: { jwtToken: token, sub: state.session.sub } },
     })
@@ -86,38 +91,22 @@ const GlobalStateProvider = ({
 
         mutation.mutate(req, {
           onSuccess: (res: AxiosResponse<AuthResponse>) => {
-            setState((_: any) => ({
-              session: {
-                jwtToken: res.data.token,
-                sub: 'sub',
-              },
-            }))
+            captains.log('onSuccess renewToken', res)
+            renewToken(res.data.token)
           },
           onError: () => {
-            setState((_: any) => ({
-              ...INIT_STATE,
-            }))
+            clearState()
             router.push('/login')
           },
         })
       } else {
-        setState((_: any) => ({
-          ...INIT_STATE,
-        }))
+        clearState()
         router.push('/login')
       }
     }
 
     checkLogin()
   }, [])
-
-  useEffect(() => {
-    setCookie(null, 'state', JSON.stringify(state), {
-      // 60秒 * 60 * 24 * 3650 日間保存
-      maxAge: 24 * 60 * 60 * Const.SessionRetentionPeriod,
-      secure: true,
-    })
-  }, [state])
 
   return (
     <GlobalContext.Provider value={global}>{children}</GlobalContext.Provider>

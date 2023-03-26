@@ -4,7 +4,7 @@ import Pager from '../molecules/pager'
 import { TableHeaderItem } from '../../data/table-header-item'
 import { SortItem } from '../../data/sort-item'
 import { PageItem } from '../../data/page-item'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
 
 export const SearchableTable = ({
