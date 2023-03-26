@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import _ from 'lodash'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosPromise, AxiosResponse } from 'axios'
 import { parseCookies, setCookie } from 'nookies'
 import GlobalContext from './global-context'

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { destroyCookie } from 'nookies'
 import { AxiosPromise } from 'axios'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import GlobalContext from '../../context/global-context'
 import { BaseResponse, AuthRepository } from '../../repository/auth-repository'
 

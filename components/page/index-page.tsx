@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { ParsedUrlQuery } from 'querystring'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { AxiosPromise } from 'axios'
 import {
   Product,
