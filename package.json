@@ -39,7 +39,7 @@
     "react-dom": "17.0.2",
     "react-hook-form": "7.43.8",
     "react-toastify": "8.2.0",
-    "yup": "0.32.11"
+    "yup": "1.4.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "0.5.3",
