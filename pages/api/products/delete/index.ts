@@ -5,7 +5,7 @@ import { IdRequest } from '../../../../lib/data/id-request'
 export default (req: IdRequest, res: NextApiResponse): void => {
   // CORSヘッダーの設定
   res.setHeader('Access-Control-Allow-Origin', '*') // すべてのオリジンからのアクセスを許可
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS') // 許可するHTTPメソッド
+  res.setHeader('Access-Control-Allow-Methods', 'DELETE, OPTIONS') // 許可するHTTPメソッド
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization') // 許可するヘッダー
 
   // OPTIONSメソッドのハンドリング（CORSプリフライトリクエスト）
