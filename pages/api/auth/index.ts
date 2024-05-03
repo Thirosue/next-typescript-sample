@@ -12,6 +12,17 @@ export default async (
   req: AuthRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  // CORSヘッダーの設定
+  res.setHeader('Access-Control-Allow-Origin', '*') // すべてのオリジンからのアクセスを許可
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS') // 許可するHTTPメソッド
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization') // 許可するヘッダー
+
+  // OPTIONSメソッドのハンドリング（CORSプリフライトリクエスト）
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+
   if (req.body.id && req.body.password && 0 < req.body.id.lastIndexOf('.com')) {
     const payload = {
       user: req.body.id,

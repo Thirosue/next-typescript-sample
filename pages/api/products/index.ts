@@ -20,6 +20,17 @@ export default async (
   req: ProductGetRequest,
   res: NextApiResponse
 ): Promise<void> => {
+  // CORSヘッダーの設定
+  res.setHeader('Access-Control-Allow-Origin', '*') // すべてのオリジンからのアクセスを許可
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS') // 許可するHTTPメソッド
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization') // 許可するヘッダー
+
+  // OPTIONSメソッドのハンドリング（CORSプリフライトリクエスト）
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+
   try {
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
