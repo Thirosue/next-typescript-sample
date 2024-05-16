@@ -118,6 +118,30 @@ Vary: Accept-Encoding
 
 #### Get
 
+- find
+
+```
+% http 'localhost:3000/api/products/get?id=1'
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Content-Type, Authorization
+Access-Control-Allow-Methods: GET, OPTIONS
+Access-Control-Allow-Origin: *
+Connection: keep-alive
+Content-Length: 102
+Content-Type: application/json; charset=utf-8
+Date: Thu, 16 May 2024 07:30:37 GMT
+ETag: "66-iuGdBZkk9ljc2lvh62laBFM7VG0"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "description": "16oz package of fresh organic strawberries",
+    "id": 1,
+    "name": "Strawberries",
+    "quantity": 1
+}
+```
+
 - findAll
 
 ```
