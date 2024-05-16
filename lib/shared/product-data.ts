@@ -108,6 +108,10 @@ const getRandomInt = (): number => {
   return Math.floor(Math.random() * Math.floor(max) + min)
 }
 
+const getProduct = (id: number): Product => {
+  return data.products.find((v) => v.id === id)
+}
+
 const addProduct = (product: Product): Product => {
   product.id = getRandomInt()
   data.products.push(product)
@@ -129,4 +133,10 @@ const getProducts = (): Product[] => {
   return data.products
 }
 
-export default { addProduct, updateProduct, deleteProduct, getProducts }
+export default {
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  getProducts,
+  getProduct,
+}
