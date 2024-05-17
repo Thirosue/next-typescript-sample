@@ -2,7 +2,7 @@ import { NextApiResponse } from 'next'
 import data from '../../../../lib/shared/product-data'
 import { IdRequest } from '../../../../lib/data/id-request'
 
-export default (req: IdRequest, res: NextApiResponse): void => {
+export default async (req: IdRequest, res: NextApiResponse): Promise<void> => {
   // CORSヘッダーの設定
   res.setHeader('Access-Control-Allow-Origin', '*') // すべてのオリジンからのアクセスを許可
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS') // 許可するHTTPメソッド
@@ -15,6 +15,7 @@ export default (req: IdRequest, res: NextApiResponse): void => {
   }
 
   const id = parseInt(req.query.id, 10)
+  await new Promise((resolve) => setTimeout(resolve, 1500))
 
   try {
     res.status(200).json(data.getProduct(id))
