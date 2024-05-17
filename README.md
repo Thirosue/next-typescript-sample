@@ -27,17 +27,22 @@ yarn dev
 ```
 % http POST localhost:3000/api/auth id=test@test.com password=admin
 HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Content-Type, Authorization
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Origin: *
 Connection: keep-alive
-Content-Length: 201
+Content-Length: 394
 Content-Type: application/json; charset=utf-8
-Date: Mon, 23 Aug 2021 23:29:25 GMT
-ETag: "c9-6kjwixFGqj2C2hgCqf35OBK/l+Y"
+Date: Fri, 17 May 2024 10:17:01 GMT
+ETag: "18a-YxvWFfvmnbsudkJJ4TTgo1ce+FA"
 Keep-Alive: timeout=5
+Set-Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY1NDU4MjAsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20ifSwiaWF0IjoxNzE1OTQxMDIwfQ.4kcZ2GH7qJwDTCCneHUj8uwlcmnPD1blXRtgnTbOrb4; Max-Age=604800; Path=/; HttpOnly; SameSite=Strict
 Vary: Accept-Encoding
 
 {
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY1NDU4MjAsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20ifSwiaWF0IjoxNzE1OTQxMDIwfQ.4kcZ2GH7qJwDTCCneHUj8uwlcmnPD1blXRtgnTbOrb4",
     "status": "ok",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Mjk3NjQ5NjQsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20ifSwiaWF0IjoxNjI5NzYxMzY0fQ.3M5XsLvIfiCcUcux6Ygs5X1GTksMtopwXPjf-cJdhr0"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU5NDEwMjAsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20ifSwiaWF0IjoxNzE1OTQxMDIwfQ.FvPQhS4SDhsLkPwEIo9jbOaPDlMIeSOiq01nso-4fM4"
 }
 ```
 
@@ -56,6 +61,28 @@ Vary: Accept-Encoding
 
 {
     "status": "ok"
+}
+```
+
+#### Token Refresh
+
+```
+$ http POST localhost:3000/api/auth/refreshTokenCheck 'Cookie:refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTY1NDU4MjAsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20ifSwiaWF0IjoxNzE1OTQxMDIwfQ.4kcZ2GH7qJwDTCCneHUj8uwlcmnPD1blXRtgnTbOrb4'
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: Content-Type, Authorization
+Access-Control-Allow-Methods: GET, POST, OPTIONS
+Access-Control-Allow-Origin: *
+Connection: keep-alive
+Content-Length: 154
+Content-Type: application/json; charset=utf-8
+Date: Fri, 17 May 2024 10:20:40 GMT
+ETag: "9a-x4wAb7VqEzpy5Lw11nvelKU82kU"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "status": "ok",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTU5NDEyNDAsImlhdCI6MTcxNTk0MTI0MH0.Xobe4Bf4T9qQnudnrpln1nhbVMHpf60_1eSl9o76bC8"
 }
 ```
 
