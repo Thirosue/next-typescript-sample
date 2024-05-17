@@ -4,10 +4,10 @@ export const SECRET_KEY = 'secret'
 
 class TokenHelper {
   // eslint-disable-next-line
-  public static sign(payload: any): any {
+  public static sign(payload: any, exp: any = null): any {
     return jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        exp: Math.floor(Date.now() / 1000) + exp ?? 60 * 60,
         payload,
       },
       SECRET_KEY

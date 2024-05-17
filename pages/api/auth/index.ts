@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
+import { serialize } from 'cookie'
 import TokenHelper from '../../../helpers/token'
 
 type AuthRequest = NextApiRequest & {
@@ -28,8 +29,19 @@ export default async (
       user: req.body.id,
     }
     const token = TokenHelper.sign(payload)
+    const refreshToken = TokenHelper.sign(payload, 7 * 24 * (60 * 60)) // 7 days in seconds
+    const refreshCookie = serialize('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 604800, // 7 days in seconds
+      path: '/',
+    })
+
     await new Promise((resolve) => setTimeout(resolve, 1000))
-    res.status(200).json({ status: 'ok', token })
+
+    res.setHeader('Set-Cookie', refreshCookie)
+    res.status(200).json({ status: 'ok', token, refreshToken })
   } else {
     res.status(401).json({ message: 'Unauthorized' })
   }
