@@ -6,7 +6,7 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
   // CORSヘッダーの設定
   res.setHeader('Access-Control-Allow-Origin', '*') // すべてのオリジンからのアクセスを許可
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS') // 許可するHTTPメソッド
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization') // 許可するヘッダー
+  res.setHeader('Access-Control-Allow-Headers', '*') // 許可するヘッダー
 
   // OPTIONSメソッドのハンドリング（CORSプリフライトリクエスト）
   if (req.method === 'OPTIONS') {
