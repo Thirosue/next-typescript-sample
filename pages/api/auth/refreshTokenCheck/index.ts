@@ -15,9 +15,12 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
   }
 
   let refreshToken = req.cookies.refreshToken
-  // X-REFRESH-TOKEN header override
-  if (req.headers['x-refresh-token']) {
-    refreshToken = req.headers['x-refresh-token'] as string
+  // Authorization header override
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.split(' ')[0] === 'Bearer'
+  ) {
+    refreshToken = req.headers.authorization.split(' ')[1]
   }
 
   if (!refreshToken) {
