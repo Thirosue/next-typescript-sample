@@ -36,7 +36,7 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
       if (err) {
         res.status(401).json({ message: 'Unauthorized' })
       } else {
-        const token = TokenHelper.sign(decoded.user)
+        const token = TokenHelper.sign(decoded.payload)
         res.status(200).json({ status: 'ok', token })
       }
     })
