@@ -64,7 +64,7 @@ Vary: Accept-Encoding
 }
 ```
 
-#### Get Permisson 
+#### Get Permisson
 
 ```
 $ http localhost:3000/api/auth/permissions Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTYxNzIyMjMsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20iLCJyb2xlIjoidXNlciJ9LCJpYXQiOjE3MTYxNjg2MjN9.3PWJF0ibVh7BwaC2xV7dHavnvQwmhW8qkJrPuGvVDpM'
