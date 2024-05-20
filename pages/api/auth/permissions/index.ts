@@ -14,7 +14,6 @@ const roles = {
     { namespace: 'order', operation: 'view' },
   ],
   user: [
-    { namespace: 'product', operation: 'view' },
     { namespace: 'order', operation: 'create' },
     { namespace: 'order', operation: 'view' },
   ],
