@@ -64,6 +64,41 @@ Vary: Accept-Encoding
 }
 ```
 
+#### Get Permisson 
+
+```
+$ http localhost:3000/api/auth/permissions Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTYxNzIyMjMsInBheWxvYWQiOnsidXNlciI6InRlc3RAdGVzdC5jb20iLCJyb2xlIjoidXNlciJ9LCJpYXQiOjE3MTYxNjg2MjN9.3PWJF0ibVh7BwaC2xV7dHavnvQwmhW8qkJrPuGvVDpM'
+HTTP/1.1 200 OK
+Access-Control-Allow-Headers: *
+Access-Control-Allow-Methods: GET, OPTIONS
+Access-Control-Allow-Origin: *
+Connection: keep-alive
+Content-Length: 158
+Content-Type: application/json; charset=utf-8
+Date: Mon, 20 May 2024 01:34:29 GMT
+ETag: "9e-uyDVjhu2j3xsqjS8Dud7Gx7zBas"
+Keep-Alive: timeout=5
+Vary: Accept-Encoding
+
+{
+    "permissions": [
+        {
+            "namespace": "product",
+            "operation": "view"
+        },
+        {
+            "namespace": "order",
+            "operation": "create"
+        },
+        {
+            "namespace": "order",
+            "operation": "view"
+        }
+    ],
+    "status": "ok"
+}
+```
+
 #### Token Refresh
 
 ```

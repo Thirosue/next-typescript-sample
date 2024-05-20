@@ -27,10 +27,8 @@ export default async (
   if (req.body.id && req.body.password && 0 < req.body.id.lastIndexOf('.com')) {
     const payload = {
       user: req.body.id,
-      // admin, user, operator, guest をランダムで返す
-      role: ['admin', 'user', 'operator', 'guest'][
-        Math.floor(Math.random() * 4)
-      ],
+      // admin, user, operator をランダムで返す
+      role: ['admin', 'user', 'operator'][Math.floor(Math.random() * 3)],
     }
     const token = TokenHelper.sign(payload)
     const refreshToken = TokenHelper.sign(payload, 7 * 24 * (60 * 60)) // 7 days in seconds
