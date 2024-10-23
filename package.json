@@ -47,7 +47,7 @@
     "@tailwindcss/typography": "0.5.9",
     "@testing-library/react": "12.1.5",
     "@types/jest": "29.5.0",
-    "@types/node": "18.15.10",
+    "@types/node": "18.19.59",
     "@types/react": "17.0.20",
     "@typescript-eslint/eslint-plugin": "5.56.0",
     "@typescript-eslint/parser": "5.56.0",
